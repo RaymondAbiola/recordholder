@@ -65,5 +65,3 @@ export const INTERFACE_IDS = {
   IScaledUIAmountBalances: "0xd890fd71",
   IERC8056Scheduled: "0xeb0093dd",
 } as const;
-
-export const WAD = 10n ** 18n;

@@ -113,6 +113,39 @@ tokenized equities need address-exact matching because ticker search is poisoned
 
 ---
 
+## 2026-10-05 — "is a multiplier change pending" needs two code paths
+
+**Trying to:** answer one question for any ERC-8056 token: is a multiplier change
+scheduled, and when does it land.
+
+**Expected:** one getter.
+
+**Got:** it depends on which optional interfaces the token carries, so a correct reader
+needs both paths plus ERC-165 detection to choose between them.
+
+On a token with the BSC-only `IERC8056Scheduled` (`0xeb0093dd`), `hasPendingMultiplier()`
+answers directly. Without it you fall back to `effectiveAt() > block.timestamp`, because
+`newUIMultiplier()` cannot answer alone: spec 4.2 has it keep returning the stored next
+value after that value is already active, so it equals `uiMultiplier()` both before
+anything is scheduled and after a change has landed. Those two states are
+indistinguishable from that getter.
+
+The fallback also costs an extra round trip, since comparing against `block.timestamp`
+means fetching a block just to ask whether something is pending.
+
+Same shape on `totalSupplyUI()`: `IScaledUIAmountBalances` is optional, so a generic
+reader has to compute `raw * multiplier / 1e18` locally when it is absent. All 83 bStocks
+expose it, but nothing in the standard says they must.
+
+**Cost:** about 30 minutes, most of it re-reading 4.2 and 4.5 to convince myself the
+ambiguity was real and not a misreading.
+
+**Would have prevented it:** fold `hasPendingMultiplier()` into the required extension
+rather than leaving it as a BSC addition. It is the only getter that answers the question
+an integrator actually has, and the spec's own motivation section in 4.5 says as much.
+
+---
+
 ## [recon] What worked first try
 
 - ERC-165 detection. All five interface IDs returned true on TSLAB, including the

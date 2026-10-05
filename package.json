@@ -6,6 +6,7 @@
   "description": "Corporate action and dividend record for BEP-677 tokenized stocks on BNB Chain",
   "scripts": {
     "smoke": "tsx scripts/smoke.ts",
+    "token": "tsx scripts/token.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
