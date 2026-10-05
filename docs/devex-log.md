@@ -153,6 +153,34 @@ an integrator actually has, and the spec's own motivation section in 4.5 says as
 
 ---
 
+## 2026-10-05 — latency: characterising a catalogue needs batching, not patience
+
+**Trying to:** read multiplier, raw supply, UI supply and pending state for all 83
+bStocks, fast enough to render a page.
+
+**Numbers:** 5 reads per token, so 415 logical calls. Through Multicall3 that collapses
+to **4 RPC round trips, 6714ms total** against `bsc-dataseed.binance.org`.
+
+The interesting part is where the time goes. At roughly 1.7s per round trip, the cost is
+almost entirely per-request latency on the public endpoint, not the work inside the call:
+a multicall carrying 200 sub-calls costs about the same as one carrying 5. So the lever is
+request count, and nothing else.
+
+Done naively, 415 sequential round trips at that latency is on the order of 12 minutes.
+I hit this during reconnaissance before batching: a sequential scan of 55 Venus markets
+blew a 120 second timeout and had to be moved to the background.
+
+**Worth knowing:** Multicall3 is deployed at the canonical
+`0xcA11bde05977b3631167028862bE2a173976CA11` on BSC, so viem's `multicall` works with no
+setup. That is the single thing that makes a catalogue-wide view feasible.
+
+**Would have prevented the detour:** BEP-677's integration guidance could say outright
+that fully characterising a scaled-UI token takes four to five reads, so anything
+operating over a set of them must batch. The per-token interface reads naturally and
+scales terribly, and nothing in the spec hints at that.
+
+---
+
 ## [recon] What worked first try
 
 - ERC-165 detection. All five interface IDs returned true on TSLAB, including the
