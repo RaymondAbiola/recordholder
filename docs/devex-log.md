@@ -96,6 +96,42 @@ mechanism supports arbitrary lead time; nothing encourages using it.
 
 ---
 
+## 2026-10-05 — there is no per-holder event for a dividend, at all
+
+**Trying to:** tell a holder what a corporate action paid them.
+
+**Expected:** some event carrying holder and amount, the way an airdrop or a transfer does.
+
+**Got:** nothing exists. The two events in play carry disjoint halves of the answer and
+neither can be joined to the other:
+
+- `UIMultiplierUpdated(old, new, effectiveAt)` says the multiplier moved. It names no
+  holder and carries no balances.
+- `TransferWithUIAmount(from, to, amount, uiAmount)` names holders, but is only emitted
+  on transfers. A multiplier change moves no tokens, so it fires for nobody.
+
+So when a dividend lands there is no transaction, no transfer, no log mentioning the
+holder, and no change to `balanceOf`. A holder's entire transaction history contains zero
+evidence that they were paid. The only way to compute it is to already know the multiplier
+changed, then go read your own historical balance at the block before it did, which
+requires an archive node.
+
+That is the product in one paragraph. It is also the most consequential thing I found: the
+information is not hard to get, it is structurally unavailable through every tool a normal
+holder has.
+
+**Measured:** Lista Moolah's lending pool held through 21 of the 22 events and was credited
+7.6443 shares. Reconstructing that took 3.7 seconds with an archive node and is impossible
+without one.
+
+**Would fix it:** emit a per-holder event on multiplier change, or at minimum specify an
+`accrued`-style view so an integrator can ask "what did this account gain from multiplier
+changes" without reconstructing balances at historical blocks. Failing that, document
+plainly in BEP-677 that corporate actions are invisible to holder-side tooling, because
+right now the standard reads as though the display layer handles it.
+
+---
+
 ## 2026-10-05 — every corporate action so far had less notice than the oracle may be stale
 
 **Trying to:** recover the full corporate action history for the catalogue, and measure

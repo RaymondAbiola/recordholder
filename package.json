@@ -10,6 +10,7 @@
     "catalogue": "tsx scripts/catalogue.ts",
     "sweep": "tsx scripts/sweep.ts",
     "events": "tsx scripts/events.ts",
+    "wallet": "tsx scripts/wallet.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
