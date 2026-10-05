@@ -96,6 +96,48 @@ mechanism supports arbitrary lead time; nothing encourages using it.
 
 ---
 
+## 2026-10-05 — every corporate action so far had less notice than the oracle may be stale
+
+**Trying to:** recover the full corporate action history for the catalogue, and measure
+how much warning integrators actually got for each one.
+
+**Got:** 22 events across 22 tokens, reconstructed from historical `eth_call`. The notice
+period is the gap between the block where `newUIMultiplier()` first reports the incoming
+value and the block where `uiMultiplier()` starts returning it.
+
+| | seconds |
+| --- | --- |
+| minimum (GSB) | 109 |
+| median | 649 |
+| maximum (WDCB) | 1549 |
+
+Venus's pivot oracle config for these same tokens tolerates **3900 seconds** of price
+staleness. So all 22 of 22 corporate actions were announced with less warning than the
+price feed is permitted to be stale, the tightest by a factor of 36.
+
+The mechanism supports arbitrary lead time. In practice the issuer is using minutes.
+
+Other observations from the reconstruction:
+
+- Most events take effect at exactly 00:00:00 UTC. Three leveraged ETFs (MUUB, SOXLB,
+  SOXSB) moved together at 01:30:00 on 2026-09-22, so events arrive in issuer batches,
+  not independently.
+- Cadence is accelerating as the catalogue grows: one event in July, four in August,
+  sixteen in September.
+- MUB was already off 1.0 at the earliest block sampled, so its earlier history is
+  genuinely unrecoverable within the scan window and is recorded as unknown rather than
+  guessed.
+
+**Cost:** the reconstruction itself runs in 65 seconds, but only because Multicall3 works
+at historical blocks, so the coarse scan is one request per sampled block regardless of
+how many tokens are in it. 18 requests cover 83 tokens.
+
+**Would have prevented the work entirely:** retrievable event logs. All three BEP-677
+events are emitted correctly; they are simply unreadable on public infrastructure, so this
+whole module exists to reconstruct from state what the logs already record.
+
+---
+
 ## [recon] Overwritten schedules are invisible to the obvious listener
 
 **Got:** BEP-677 4.5 states that an integrator listening only to `UIMultiplierUpdated`

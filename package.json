@@ -9,6 +9,7 @@
     "token": "tsx scripts/token.ts",
     "catalogue": "tsx scripts/catalogue.ts",
     "sweep": "tsx scripts/sweep.ts",
+    "events": "tsx scripts/events.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

@@ -2,11 +2,13 @@ import { readFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import type { Sweep, SweepRow } from "./sweep.js";
+import type { MultiplierEvent, TokenHistory } from "./events.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const dataDir = join(here, "..", "data");
 
 export const SWEEP_PATH = join(dataDir, "sweep.json");
+export const EVENTS_PATH = join(dataDir, "events.json");
 
 /** JSON has no bigint, so the snapshot stores them as decimal strings. */
 export function loadSweep(): Sweep | null {
@@ -42,5 +44,45 @@ export function loadSweep(): Sweep | null {
     hiddenShareCount: BigInt(raw.hiddenShareCount),
     elapsedMs: raw.elapsedMs,
     rpcCalls: raw.rpcCalls,
+  };
+}
+
+export type EventsSnapshot = {
+  generatedAt: string;
+  headBlock: bigint;
+  histories: TokenHistory[];
+  events: MultiplierEvent[];
+};
+
+export function loadEvents(): EventsSnapshot | null {
+  if (!existsSync(EVENTS_PATH)) return null;
+  const raw = JSON.parse(readFileSync(EVENTS_PATH, "utf8")) as Record<string, any>;
+
+  const event = (e: Record<string, any>): MultiplierEvent => ({
+    symbol: e.symbol,
+    underlying: e.underlying,
+    address: e.address,
+    fromMultiplier: BigInt(e.fromMultiplier),
+    toMultiplier: BigInt(e.toMultiplier),
+    stepBps: e.stepBps,
+    block: BigInt(e.block),
+    effectiveAt: BigInt(e.effectiveAt),
+    scheduledAtBlock: e.scheduledAtBlock === null ? null : BigInt(e.scheduledAtBlock),
+    scheduledAt: e.scheduledAt === null ? null : BigInt(e.scheduledAt),
+    noticeSeconds: e.noticeSeconds,
+  });
+
+  return {
+    generatedAt: raw.generatedAt,
+    headBlock: BigInt(raw.headBlock),
+    histories: (raw.histories as Record<string, any>[]).map((h) => ({
+      symbol: h.symbol,
+      address: h.address,
+      firstSeenBlock: BigInt(h.firstSeenBlock),
+      multiplierAtFirstSeen: BigInt(h.multiplierAtFirstSeen),
+      events: (h.events as Record<string, any>[]).map(event),
+      truncated: h.truncated,
+    })),
+    events: (raw.events as Record<string, any>[]).map(event),
   };
 }

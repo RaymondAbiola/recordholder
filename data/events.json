@@ -1,0 +1,788 @@
+{
+  "generatedAt": "2026-10-05T10:10:57.633Z",
+  "headBlock": "125849669",
+  "scanStart": "112500000",
+  "samples": 18,
+  "histories": [
+    {
+      "symbol": "AAPLB",
+      "address": "0x431a3BEE82E2ca41e49895CbECE5bB0F76A89b7A",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "AAPLB",
+          "underlying": "Apple",
+          "address": "0x431a3BEE82E2ca41e49895CbECE5bB0F76A89b7A",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1000603906075632366",
+          "stepBps": 6.039,
+          "block": "115021055",
+          "effectiveAt": "1786320000",
+          "scheduledAtBlock": "115019613",
+          "scheduledAt": "1786319351",
+          "noticeSeconds": 649
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "AMATB",
+      "address": "0xa304BD78e739C0F777202B3eB73Ac3736d1df801",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "AMATB",
+          "underlying": "Applied Materials",
+          "address": "0xa304BD78e739C0F777202B3eB73Ac3736d1df801",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1000748400440519121",
+          "stepBps": 7.484,
+          "block": "116940447",
+          "effectiveAt": "1787184000",
+          "scheduledAtBlock": "116938875",
+          "scheduledAt": "1787183292",
+          "noticeSeconds": 708
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "AVGOB",
+      "address": "0x76682c454467b3A1150Ad8b6a92FC5eE2C21d7eD",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "AVGOB",
+          "underlying": "Broadcom",
+          "address": "0x76682c454467b3A1150Ad8b6a92FC5eE2C21d7eD",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1001269208611258122",
+          "stepBps": 12.692,
+          "block": "123081455",
+          "effectiveAt": "1789948800",
+          "scheduledAtBlock": "123078949",
+          "scheduledAt": "1789947671",
+          "noticeSeconds": 1129
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "CRMB",
+      "address": "0x8C433eCa1be0e2a357015602F63751C768F6f643",
+      "firstSeenBlock": "119567471",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "CRMB",
+          "underlying": "Salesforce",
+          "address": "0x8C433eCa1be0e2a357015602F63751C768F6f643",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1001229509379034956",
+          "stepBps": 12.295,
+          "block": "122313771",
+          "effectiveAt": "1789603200",
+          "scheduledAtBlock": "122312540",
+          "scheduledAt": "1789602646",
+          "noticeSeconds": 554
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "GLWB",
+      "address": "0x740e075cBbEa22a082B9d6679e65e82767875b6A",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "GLWB",
+          "underlying": "Corning",
+          "address": "0x740e075cBbEa22a082B9d6679e65e82767875b6A",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1001290269312564890",
+          "stepBps": 12.902,
+          "block": "119051698",
+          "effectiveAt": "1788134400",
+          "scheduledAtBlock": "119048389",
+          "scheduledAt": "1788132910",
+          "noticeSeconds": 1490
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "GOOGLB",
+      "address": "0x3F53De71c126BdaBAe20f9cD64848d317f6C3238",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "GOOGLB",
+          "underlying": "Alphabet",
+          "address": "0x3F53De71c126BdaBAe20f9cD64848d317f6C3238",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1000478058978107511",
+          "stepBps": 4.78,
+          "block": "119818926",
+          "effectiveAt": "1788480000",
+          "scheduledAtBlock": "119817621",
+          "scheduledAt": "1788479412",
+          "noticeSeconds": 588
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "GSB",
+      "address": "0x20CCe6656E5F7F79f280E2D0F5dB55b401BDbfCe",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "GSB",
+          "underlying": "Goldman Sachs",
+          "address": "0x20CCe6656E5F7F79f280E2D0F5dB55b401BDbfCe",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1003406278840750514",
+          "stepBps": 34.062,
+          "block": "119243646",
+          "effectiveAt": "1788220800",
+          "scheduledAtBlock": "119243404",
+          "scheduledAt": "1788220691",
+          "noticeSeconds": 109
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "IBMB",
+      "address": "0xfA273B076Feb8c0FB34e554ae341082323D016A3",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "IBMB",
+          "underlying": "IBM",
+          "address": "0xfA273B076Feb8c0FB34e554ae341082323D016A3",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1005005801623174456",
+          "stepBps": 50.058,
+          "block": "115021055",
+          "effectiveAt": "1786320000",
+          "scheduledAtBlock": "115019617",
+          "scheduledAt": "1786319353",
+          "noticeSeconds": 647
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "METAB",
+      "address": "0x7425889FE94F9d693E8daefE88BCCed6AcFEf4c0",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "METAB",
+          "underlying": "Meta Platforms",
+          "address": "0x7425889FE94F9d693E8daefE88BCCed6AcFEf4c0",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1000548290410744950",
+          "stepBps": 5.482,
+          "block": "123081455",
+          "effectiveAt": "1789948800",
+          "scheduledAtBlock": "123078953",
+          "scheduledAt": "1789947673",
+          "noticeSeconds": 1127
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "MSFTB",
+      "address": "0x80106cb3EAD06659A5ad19DF39D9b4733863B9b0",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "MSFTB",
+          "underlying": "Microsoft",
+          "address": "0x80106cb3EAD06659A5ad19DF39D9b4733863B9b0",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1001313964833366845",
+          "stepBps": 13.139,
+          "block": "116940447",
+          "effectiveAt": "1787184000",
+          "scheduledAtBlock": "116938871",
+          "scheduledAt": "1787183291",
+          "noticeSeconds": 709
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "MUUB",
+      "address": "0x0bB3fA77E0809f42948E435F04883C25415e8263",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "MUUB",
+          "underlying": "Direxion MU Bull 2X ETF",
+          "address": "0x0bB3fA77E0809f42948E435F04883C25415e8263",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1003951968068627743",
+          "stepBps": 39.519,
+          "block": "123285369",
+          "effectiveAt": "1790040600",
+          "scheduledAtBlock": "123282861",
+          "scheduledAt": "1790039471",
+          "noticeSeconds": 1129
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "NOKB",
+      "address": "0x7c4d7a180D737Dd5A70d8065a90E6746a69C37EA",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "NOKB",
+          "underlying": "Nokia",
+          "address": "0x7c4d7a180D737Dd5A70d8065a90E6746a69C37EA",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1002349416320445721",
+          "stepBps": 23.494,
+          "block": "112526318",
+          "effectiveAt": "1785196800",
+          "scheduledAtBlock": "112525410",
+          "scheduledAt": "1785196391",
+          "noticeSeconds": 409
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "NVDAB",
+      "address": "0x02Fca66C1D1aFB4E2A7884261eB00F63598a7436",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "NVDAB",
+          "underlying": "NVIDIA",
+          "address": "0x02Fca66C1D1aFB4E2A7884261eB00F63598a7436",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1000778223752807865",
+          "stepBps": 7.782,
+          "block": "120970451",
+          "effectiveAt": "1788998400",
+          "scheduledAtBlock": "120969809",
+          "scheduledAt": "1788998110",
+          "noticeSeconds": 290
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "PYPLB",
+      "address": "0x2806a561fC1F9259B2d54A281796Bde0D92762aE",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "PYPLB",
+          "underlying": "Paypal",
+          "address": "0x2806a561fC1F9259B2d54A281796Bde0D92762aE",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1001771778812964209",
+          "stepBps": 17.717,
+          "block": "119818926",
+          "effectiveAt": "1788480000",
+          "scheduledAtBlock": "119816817",
+          "scheduledAt": "1788479051",
+          "noticeSeconds": 949
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "QCOMB",
+      "address": "0x5F7A56e877B9130608Bf8BE962621011182fEfE1",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "QCOMB",
+          "underlying": "Qualcomm",
+          "address": "0x5F7A56e877B9130608Bf8BE962621011182fEfE1",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1003804323223530061",
+          "stepBps": 38.043,
+          "block": "119627413",
+          "effectiveAt": "1788393600",
+          "scheduledAtBlock": "119626504",
+          "scheduledAt": "1788393191",
+          "noticeSeconds": 409
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "QQQB",
+      "address": "0x205812CdBed920aFf76C6580abD681a46D11efc7",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "QQQB",
+          "underlying": "Invesco QQQ Trust",
+          "address": "0x205812CdBed920aFf76C6580abD681a46D11efc7",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1000724838657573033",
+          "stepBps": 7.248,
+          "block": "123084522",
+          "effectiveAt": "1789950180",
+          "scheduledAtBlock": "123083746",
+          "scheduledAt": "1789949831",
+          "noticeSeconds": 349
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "SOXLB",
+      "address": "0xd97d097a89113fa59b76c572E5b2Eb647E8eefaf",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "SOXLB",
+          "underlying": "Semicon Bull 3X ETF",
+          "address": "0xd97d097a89113fa59b76c572E5b2Eb647E8eefaf",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1000441939278863313",
+          "stepBps": 4.419,
+          "block": "123285369",
+          "effectiveAt": "1790040600",
+          "scheduledAtBlock": "123283527",
+          "scheduledAt": "1790039770",
+          "noticeSeconds": 830
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "SOXSB",
+      "address": "0xE28Cd11C99AF2df76bb8aDA4Cd0ef3904378280F",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "SOXSB",
+          "underlying": "Direxion Semiconductor Bear 3X ETF",
+          "address": "0xE28Cd11C99AF2df76bb8aDA4Cd0ef3904378280F",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1009026219854107205",
+          "stepBps": 90.262,
+          "block": "123285369",
+          "effectiveAt": "1790040600",
+          "scheduledAtBlock": "123282461",
+          "scheduledAt": "1790039291",
+          "noticeSeconds": 1309
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "SPYB",
+      "address": "0x7138b48df7D98D7e3cc221BfE7192D0a178182D8",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "SPYB",
+          "underlying": "SPY",
+          "address": "0x7138b48df7D98D7e3cc221BfE7192D0a178182D8",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1001729792036835231",
+          "stepBps": 17.297,
+          "block": "122505656",
+          "effectiveAt": "1789689600",
+          "scheduledAtBlock": "122505280",
+          "scheduledAt": "1789689431",
+          "noticeSeconds": 169
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "TQQQB",
+      "address": "0x462B5F13B7C7748279358962925c5De83BB9E598",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "TQQQB",
+          "underlying": "ProShares UltraPro QQQ",
+          "address": "0x462B5F13B7C7748279358962925c5De83BB9E598",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1001347622058686173",
+          "stepBps": 13.476,
+          "block": "123465319",
+          "effectiveAt": "1790121600",
+          "scheduledAtBlock": "123464143",
+          "scheduledAt": "1790121070",
+          "noticeSeconds": 530
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "TSMB",
+      "address": "0xAB78b89B5bb00236Be0B4B20704cBfa04EfC711c",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "TSMB",
+          "underlying": "TSMC",
+          "address": "0xAB78b89B5bb00236Be0B4B20704cBfa04EfC711c",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1002110464141050983",
+          "stepBps": 21.104,
+          "block": "122121832",
+          "effectiveAt": "1789516800",
+          "scheduledAtBlock": "122120390",
+          "scheduledAt": "1789516151",
+          "noticeSeconds": 649
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "WDCB",
+      "address": "0xebe29695F8047C13d36e7a790ca8c1b239FfAD1C",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "WDCB",
+          "underlying": "Western Digital",
+          "address": "0xebe29695F8047C13d36e7a790ca8c1b239FfAD1C",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1000224983929808861",
+          "stepBps": 2.249,
+          "block": "120586565",
+          "effectiveAt": "1788825600",
+          "scheduledAtBlock": "120583124",
+          "scheduledAt": "1788824051",
+          "noticeSeconds": 1549
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "MUB",
+      "address": "0xcdf2f3e0fa43C47A6662a91C9E4a7C5f69762699",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000107512568805603",
+      "events": [],
+      "truncated": true
+    }
+  ],
+  "events": [
+    {
+      "symbol": "NOKB",
+      "underlying": "Nokia",
+      "address": "0x7c4d7a180D737Dd5A70d8065a90E6746a69C37EA",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1002349416320445721",
+      "stepBps": 23.494,
+      "block": "112526318",
+      "effectiveAt": "1785196800",
+      "scheduledAtBlock": "112525410",
+      "scheduledAt": "1785196391",
+      "noticeSeconds": 409
+    },
+    {
+      "symbol": "AAPLB",
+      "underlying": "Apple",
+      "address": "0x431a3BEE82E2ca41e49895CbECE5bB0F76A89b7A",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1000603906075632366",
+      "stepBps": 6.039,
+      "block": "115021055",
+      "effectiveAt": "1786320000",
+      "scheduledAtBlock": "115019613",
+      "scheduledAt": "1786319351",
+      "noticeSeconds": 649
+    },
+    {
+      "symbol": "IBMB",
+      "underlying": "IBM",
+      "address": "0xfA273B076Feb8c0FB34e554ae341082323D016A3",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1005005801623174456",
+      "stepBps": 50.058,
+      "block": "115021055",
+      "effectiveAt": "1786320000",
+      "scheduledAtBlock": "115019617",
+      "scheduledAt": "1786319353",
+      "noticeSeconds": 647
+    },
+    {
+      "symbol": "AMATB",
+      "underlying": "Applied Materials",
+      "address": "0xa304BD78e739C0F777202B3eB73Ac3736d1df801",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1000748400440519121",
+      "stepBps": 7.484,
+      "block": "116940447",
+      "effectiveAt": "1787184000",
+      "scheduledAtBlock": "116938875",
+      "scheduledAt": "1787183292",
+      "noticeSeconds": 708
+    },
+    {
+      "symbol": "MSFTB",
+      "underlying": "Microsoft",
+      "address": "0x80106cb3EAD06659A5ad19DF39D9b4733863B9b0",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1001313964833366845",
+      "stepBps": 13.139,
+      "block": "116940447",
+      "effectiveAt": "1787184000",
+      "scheduledAtBlock": "116938871",
+      "scheduledAt": "1787183291",
+      "noticeSeconds": 709
+    },
+    {
+      "symbol": "GLWB",
+      "underlying": "Corning",
+      "address": "0x740e075cBbEa22a082B9d6679e65e82767875b6A",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1001290269312564890",
+      "stepBps": 12.902,
+      "block": "119051698",
+      "effectiveAt": "1788134400",
+      "scheduledAtBlock": "119048389",
+      "scheduledAt": "1788132910",
+      "noticeSeconds": 1490
+    },
+    {
+      "symbol": "GSB",
+      "underlying": "Goldman Sachs",
+      "address": "0x20CCe6656E5F7F79f280E2D0F5dB55b401BDbfCe",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1003406278840750514",
+      "stepBps": 34.062,
+      "block": "119243646",
+      "effectiveAt": "1788220800",
+      "scheduledAtBlock": "119243404",
+      "scheduledAt": "1788220691",
+      "noticeSeconds": 109
+    },
+    {
+      "symbol": "QCOMB",
+      "underlying": "Qualcomm",
+      "address": "0x5F7A56e877B9130608Bf8BE962621011182fEfE1",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1003804323223530061",
+      "stepBps": 38.043,
+      "block": "119627413",
+      "effectiveAt": "1788393600",
+      "scheduledAtBlock": "119626504",
+      "scheduledAt": "1788393191",
+      "noticeSeconds": 409
+    },
+    {
+      "symbol": "GOOGLB",
+      "underlying": "Alphabet",
+      "address": "0x3F53De71c126BdaBAe20f9cD64848d317f6C3238",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1000478058978107511",
+      "stepBps": 4.78,
+      "block": "119818926",
+      "effectiveAt": "1788480000",
+      "scheduledAtBlock": "119817621",
+      "scheduledAt": "1788479412",
+      "noticeSeconds": 588
+    },
+    {
+      "symbol": "PYPLB",
+      "underlying": "Paypal",
+      "address": "0x2806a561fC1F9259B2d54A281796Bde0D92762aE",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1001771778812964209",
+      "stepBps": 17.717,
+      "block": "119818926",
+      "effectiveAt": "1788480000",
+      "scheduledAtBlock": "119816817",
+      "scheduledAt": "1788479051",
+      "noticeSeconds": 949
+    },
+    {
+      "symbol": "WDCB",
+      "underlying": "Western Digital",
+      "address": "0xebe29695F8047C13d36e7a790ca8c1b239FfAD1C",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1000224983929808861",
+      "stepBps": 2.249,
+      "block": "120586565",
+      "effectiveAt": "1788825600",
+      "scheduledAtBlock": "120583124",
+      "scheduledAt": "1788824051",
+      "noticeSeconds": 1549
+    },
+    {
+      "symbol": "NVDAB",
+      "underlying": "NVIDIA",
+      "address": "0x02Fca66C1D1aFB4E2A7884261eB00F63598a7436",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1000778223752807865",
+      "stepBps": 7.782,
+      "block": "120970451",
+      "effectiveAt": "1788998400",
+      "scheduledAtBlock": "120969809",
+      "scheduledAt": "1788998110",
+      "noticeSeconds": 290
+    },
+    {
+      "symbol": "TSMB",
+      "underlying": "TSMC",
+      "address": "0xAB78b89B5bb00236Be0B4B20704cBfa04EfC711c",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1002110464141050983",
+      "stepBps": 21.104,
+      "block": "122121832",
+      "effectiveAt": "1789516800",
+      "scheduledAtBlock": "122120390",
+      "scheduledAt": "1789516151",
+      "noticeSeconds": 649
+    },
+    {
+      "symbol": "CRMB",
+      "underlying": "Salesforce",
+      "address": "0x8C433eCa1be0e2a357015602F63751C768F6f643",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1001229509379034956",
+      "stepBps": 12.295,
+      "block": "122313771",
+      "effectiveAt": "1789603200",
+      "scheduledAtBlock": "122312540",
+      "scheduledAt": "1789602646",
+      "noticeSeconds": 554
+    },
+    {
+      "symbol": "SPYB",
+      "underlying": "SPY",
+      "address": "0x7138b48df7D98D7e3cc221BfE7192D0a178182D8",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1001729792036835231",
+      "stepBps": 17.297,
+      "block": "122505656",
+      "effectiveAt": "1789689600",
+      "scheduledAtBlock": "122505280",
+      "scheduledAt": "1789689431",
+      "noticeSeconds": 169
+    },
+    {
+      "symbol": "AVGOB",
+      "underlying": "Broadcom",
+      "address": "0x76682c454467b3A1150Ad8b6a92FC5eE2C21d7eD",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1001269208611258122",
+      "stepBps": 12.692,
+      "block": "123081455",
+      "effectiveAt": "1789948800",
+      "scheduledAtBlock": "123078949",
+      "scheduledAt": "1789947671",
+      "noticeSeconds": 1129
+    },
+    {
+      "symbol": "METAB",
+      "underlying": "Meta Platforms",
+      "address": "0x7425889FE94F9d693E8daefE88BCCed6AcFEf4c0",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1000548290410744950",
+      "stepBps": 5.482,
+      "block": "123081455",
+      "effectiveAt": "1789948800",
+      "scheduledAtBlock": "123078953",
+      "scheduledAt": "1789947673",
+      "noticeSeconds": 1127
+    },
+    {
+      "symbol": "QQQB",
+      "underlying": "Invesco QQQ Trust",
+      "address": "0x205812CdBed920aFf76C6580abD681a46D11efc7",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1000724838657573033",
+      "stepBps": 7.248,
+      "block": "123084522",
+      "effectiveAt": "1789950180",
+      "scheduledAtBlock": "123083746",
+      "scheduledAt": "1789949831",
+      "noticeSeconds": 349
+    },
+    {
+      "symbol": "MUUB",
+      "underlying": "Direxion MU Bull 2X ETF",
+      "address": "0x0bB3fA77E0809f42948E435F04883C25415e8263",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1003951968068627743",
+      "stepBps": 39.519,
+      "block": "123285369",
+      "effectiveAt": "1790040600",
+      "scheduledAtBlock": "123282861",
+      "scheduledAt": "1790039471",
+      "noticeSeconds": 1129
+    },
+    {
+      "symbol": "SOXLB",
+      "underlying": "Semicon Bull 3X ETF",
+      "address": "0xd97d097a89113fa59b76c572E5b2Eb647E8eefaf",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1000441939278863313",
+      "stepBps": 4.419,
+      "block": "123285369",
+      "effectiveAt": "1790040600",
+      "scheduledAtBlock": "123283527",
+      "scheduledAt": "1790039770",
+      "noticeSeconds": 830
+    },
+    {
+      "symbol": "SOXSB",
+      "underlying": "Direxion Semiconductor Bear 3X ETF",
+      "address": "0xE28Cd11C99AF2df76bb8aDA4Cd0ef3904378280F",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1009026219854107205",
+      "stepBps": 90.262,
+      "block": "123285369",
+      "effectiveAt": "1790040600",
+      "scheduledAtBlock": "123282461",
+      "scheduledAt": "1790039291",
+      "noticeSeconds": 1309
+    },
+    {
+      "symbol": "TQQQB",
+      "underlying": "ProShares UltraPro QQQ",
+      "address": "0x462B5F13B7C7748279358962925c5De83BB9E598",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1001347622058686173",
+      "stepBps": 13.476,
+      "block": "123465319",
+      "effectiveAt": "1790121600",
+      "scheduledAtBlock": "123464143",
+      "scheduledAt": "1790121070",
+      "noticeSeconds": 530
+    }
+  ]
+}
