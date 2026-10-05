@@ -1,0 +1,19 @@
+{
+  "name": "recordholder",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Corporate action and dividend record for BEP-677 tokenized stocks on BNB Chain",
+  "scripts": {
+    "smoke": "tsx scripts/smoke.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "@types/node": "^22.7.0"
+  }
+}
