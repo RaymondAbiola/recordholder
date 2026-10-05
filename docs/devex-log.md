@@ -30,6 +30,13 @@ cast storage <token> 0xa3f0ad74e5423aebfd80d3ef4346578335a9a72aeaee59ff6cb3582b3
 curl -s "https://api.coingecko.com/api/v3/coins/list?include_platform=true"
 ```
 
+**Follow-up (2026-10-05):** every one of the 83 addresses passed on-chain verification,
+so the third-party data was accurate, and addresses only needed checksumming since
+CoinGecko returns them lowercased. The problem is not data quality, it is that the issuer
+of a regulated equity product leaves discovery to a third-party listing site with no
+authoritative alternative. A consumer cannot answer "what is the complete set of bStocks"
+from BNB Chain itself.
+
 ---
 
 ## [recon] Archive state and log ranges on public RPC
