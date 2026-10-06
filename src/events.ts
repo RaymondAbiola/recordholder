@@ -10,9 +10,9 @@
 // the per-token binary searches are independent, so they run concurrently.
 
 import type { Address, PublicClient } from "viem";
-import { bep677Abi } from "./abi.js";
-import { WAD, deviationBps } from "./bep677.js";
-import type { CatalogueToken } from "./catalogue.js";
+import { bep677Abi } from "./abi";
+import { WAD, deviationBps } from "./bep677";
+import type { CatalogueToken } from "./catalogue";
 
 export type MultiplierEvent = {
   symbol: string;

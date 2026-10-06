@@ -1,6 +1,6 @@
 import { formatUnits, isAddress, type Address } from "viem";
-import { client } from "../src/config.js";
-import { readToken, readPosition, type TokenState } from "../src/bep677.js";
+import { client } from "../src/config";
+import { readToken, readPosition, type TokenState } from "../src/bep677";
 
 const KNOWN: Record<string, Address> = {
   TSLAB: "0x5b1910eAaD6450E50f816082Aa078C41F10C292f",

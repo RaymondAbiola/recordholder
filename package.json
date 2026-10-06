@@ -5,6 +5,9 @@
   "type": "module",
   "description": "Corporate action and dividend record for BEP-677 tokenized stocks on BNB Chain",
   "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "smoke": "tsx scripts/smoke.ts",
     "token": "tsx scripts/token.ts",
     "catalogue": "tsx scripts/catalogue.ts",
@@ -14,11 +17,16 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "next": "^16.3.8",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
     "viem": "^2.21.0"
   },
   "devDependencies": {
+    "@types/node": "^22.7.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "tsx": "^4.19.0",
-    "typescript": "^5.6.0",
-    "@types/node": "^22.7.0"
+    "typescript": "^5.6.0"
   }
 }

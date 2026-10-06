@@ -130,6 +130,24 @@ changes" without reconstructing balances at historical blocks. Failing that, doc
 plainly in BEP-677 that corporate actions are invisible to holder-side tooling, because
 right now the standard reads as though the display layer handles it.
 
+**Follow-up (2026-10-06), what that costs at the UI:** because there is no index, a
+statement for one account needs one historical read per recorded action, and it cannot be
+batched the way the catalogue sweep can. Multicall3 batches many contracts at one block;
+this needs one contract at many different blocks, which is the opposite shape.
+
+Measured on the rendered page, at concurrency 12 against the public archive endpoint:
+
+| account | cold | warm |
+| --- | --- | --- |
+| Lista Moolah, 66 securities, 21 actions | 8.2s | 2.2s |
+| Venus vNVDAB market, 1 security, 1 action | 2.1s | - |
+
+So response time scales with how many corporate actions have ever happened, for every
+viewer, forever. Twenty-two actions is fine. The cadence is already sixteen per month and
+rising, and at a few hundred this approach stops being viable for anyone without their own
+indexer. A per-holder event, or a documented log range that public RPC will actually serve,
+would turn an O(actions) reconstruction into a single query.
+
 ---
 
 ## 2026-10-05 — every corporate action so far had less notice than the oracle may be stale

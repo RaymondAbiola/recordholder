@@ -1,6 +1,6 @@
 {
-  "blockNumber": "125848626",
-  "timestamp": "1791194522",
+  "blockNumber": "125856109",
+  "timestamp": "1791197890",
   "rows": [
     {
       "symbol": "SOXSB",
@@ -9,9 +9,9 @@
       "decimals": 18,
       "uiMultiplier": "1009026219854107205",
       "deviationBps": 90.262,
-      "totalSupply": "139399696622700000000000",
-      "totalSupplyUI": "140657948932012335831562",
-      "hiddenSupply": "1258252309312335831562",
+      "totalSupply": "139407625058890000000000",
+      "totalSupplyUI": "140665948932010486031646",
+      "hiddenSupply": "1258323873120486031646",
       "pending": null
     },
     {
@@ -45,9 +45,9 @@
       "decimals": 18,
       "uiMultiplier": "1003804323223530061",
       "deviationBps": 38.043,
-      "totalSupply": "16862232403490000000000",
-      "totalSupplyUI": "16926381785823158125018",
-      "hiddenSupply": "64149382333158125018",
+      "totalSupply": "16898257748850000000000",
+      "totalSupplyUI": "16962544183241146863944",
+      "hiddenSupply": "64286434391146863944",
       "pending": null
     },
     {
@@ -69,9 +69,9 @@
       "decimals": 18,
       "uiMultiplier": "1002349416320445721",
       "deviationBps": 23.494,
-      "totalSupply": "203046113324560000000000",
-      "totalSupplyUI": "203523153177007792637496",
-      "hiddenSupply": "477039852447792637496",
+      "totalSupply": "203051046017840000000000",
+      "totalSupplyUI": "203528097459237888422430",
+      "hiddenSupply": "477051441397888422430",
       "pending": null
     },
     {
@@ -105,9 +105,9 @@
       "decimals": 18,
       "uiMultiplier": "1001729792036835231",
       "deviationBps": 17.297,
-      "totalSupply": "19768282601900000000000",
-      "totalSupplyUI": "19802477619726675060914",
-      "hiddenSupply": "34195017826675060914",
+      "totalSupply": "19768766389150000000000",
+      "totalSupplyUI": "19802962243828007633329",
+      "hiddenSupply": "34195854678007633329",
       "pending": null
     },
     {
@@ -117,9 +117,9 @@
       "decimals": 18,
       "uiMultiplier": "1001347622058686173",
       "deviationBps": 13.476,
-      "totalSupply": "34468459997690000000000",
-      "totalSupplyUI": "34514910454711828999648",
-      "hiddenSupply": "46450457021828999648",
+      "totalSupply": "34494031679300000000000",
+      "totalSupplyUI": "34540516597284044335198",
+      "hiddenSupply": "46484917984044335198",
       "pending": null
     },
     {
@@ -153,9 +153,9 @@
       "decimals": 18,
       "uiMultiplier": "1001269208611258122",
       "deviationBps": 12.692,
-      "totalSupply": "41829566031890000000000",
-      "totalSupplyUI": "41882656477302865019848",
-      "hiddenSupply": "53090445412865019848",
+      "totalSupply": "41837282610870000000000",
+      "totalSupplyUI": "41890382850231355889263",
+      "hiddenSupply": "53100239361355889263",
       "pending": null
     },
     {
@@ -165,9 +165,9 @@
       "decimals": 18,
       "uiMultiplier": "1001229509379034956",
       "deviationBps": 12.295,
-      "totalSupply": "2103275759800000000000",
-      "totalSupplyUI": "2105861757073370973271",
-      "hiddenSupply": "2585997273370973271",
+      "totalSupply": "2105273303800000000000",
+      "totalSupplyUI": "2107861757072454008273",
+      "hiddenSupply": "2588453272454008273",
       "pending": null
     },
     {
@@ -177,9 +177,9 @@
       "decimals": 18,
       "uiMultiplier": "1000778223752807865",
       "deviationBps": 7.782,
-      "totalSupply": "183733138729180000000000",
-      "totalSupplyUI": "183876124221916990543602",
-      "hiddenSupply": "142985492736990543602",
+      "totalSupply": "183737054012530000000000",
+      "totalSupplyUI": "183880042552233492486752",
+      "hiddenSupply": "142988539703492486752",
       "pending": null
     },
     {
@@ -201,9 +201,9 @@
       "decimals": 18,
       "uiMultiplier": "1000724838657573033",
       "deviationBps": 7.248,
-      "totalSupply": "89299099477500000000000",
-      "totalSupplyUI": "89363826916887751832588",
-      "hiddenSupply": "64727439387751832588",
+      "totalSupply": "89441807441380000000000",
+      "totalSupplyUI": "89506638321016715592670",
+      "hiddenSupply": "64830879636715592670",
       "pending": null
     },
     {
@@ -237,9 +237,9 @@
       "decimals": 18,
       "uiMultiplier": "1000478058978107511",
       "deviationBps": 4.78,
-      "totalSupply": "85810212418280000000000",
-      "totalSupplyUI": "85851234760739871387065",
-      "hiddenSupply": "41022342459871387065",
+      "totalSupply": "85811211940440000000000",
+      "totalSupplyUI": "85852234760730413792477",
+      "hiddenSupply": "41022820290413792477",
       "pending": null
     },
     {
@@ -249,9 +249,9 @@
       "decimals": 18,
       "uiMultiplier": "1000441939278863313",
       "deviationBps": 4.419,
-      "totalSupply": "30203736511420000000000",
-      "totalSupplyUI": "30217084728952834471933",
-      "hiddenSupply": "13348217532834471933",
+      "totalSupply": "31408693773190000000000",
+      "totalSupplyUI": "31422574508666162218004",
+      "hiddenSupply": "13880735476162218004",
       "pending": null
     },
     {
@@ -273,9 +273,9 @@
       "decimals": 18,
       "uiMultiplier": "1000107512568805603",
       "deviationBps": 1.075,
-      "totalSupply": "41449681733020000000000",
-      "totalSupplyUI": "41454138094779291658548",
-      "hiddenSupply": "4456361759291658548",
+      "totalSupply": "41467447774550000000000",
+      "totalSupplyUI": "41471906046382054055873",
+      "hiddenSupply": "4458271832054055873",
       "pending": null
     },
     {
@@ -309,8 +309,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "191723518132360000000000",
-      "totalSupplyUI": "191723518132360000000000",
+      "totalSupply": "191959725306390000000000",
+      "totalSupplyUI": "191959725306390000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -345,8 +345,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "7109871248030000000000",
-      "totalSupplyUI": "7109871248030000000000",
+      "totalSupply": "7109871459330000000000",
+      "totalSupplyUI": "7109871459330000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -393,8 +393,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "23087279227800000000000",
-      "totalSupplyUI": "23087279227800000000000",
+      "totalSupply": "23111279227800000000000",
+      "totalSupplyUI": "23111279227800000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -417,8 +417,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "81933163816900000000000",
-      "totalSupplyUI": "81933163816900000000000",
+      "totalSupply": "81933263816900000000000",
+      "totalSupplyUI": "81933263816900000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -453,8 +453,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "5144753090185520000000000",
-      "totalSupplyUI": "5144753090185520000000000",
+      "totalSupply": "5147473090185520000000000",
+      "totalSupplyUI": "5147473090185520000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -465,8 +465,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "24350660206690000000000",
-      "totalSupplyUI": "24350660206690000000000",
+      "totalSupply": "24528660206690000000000",
+      "totalSupplyUI": "24528660206690000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -489,8 +489,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "89493735685550000000000",
-      "totalSupplyUI": "89493735685550000000000",
+      "totalSupply": "89515241854070000000000",
+      "totalSupplyUI": "89515241854070000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -501,8 +501,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "1692364679566030000000000",
-      "totalSupplyUI": "1692364679566030000000000",
+      "totalSupply": "1692480753795450000000000",
+      "totalSupplyUI": "1692480753795450000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -537,8 +537,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "311450274409970000000000",
-      "totalSupplyUI": "311450274409970000000000",
+      "totalSupply": "322385274409970000000000",
+      "totalSupplyUI": "322385274409970000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -561,8 +561,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "187378347012860000000000",
-      "totalSupplyUI": "187378347012860000000000",
+      "totalSupply": "188148295516380000000000",
+      "totalSupplyUI": "188148295516380000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -585,8 +585,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "40442408440080000000000",
-      "totalSupplyUI": "40442408440080000000000",
+      "totalSupply": "40447558285080000000000",
+      "totalSupplyUI": "40447558285080000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -609,8 +609,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "56427062233460000000000",
-      "totalSupplyUI": "56427062233460000000000",
+      "totalSupply": "58134431256130000000000",
+      "totalSupplyUI": "58134431256130000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -621,8 +621,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "273702044100980000000000",
-      "totalSupplyUI": "273702044100980000000000",
+      "totalSupply": "273730044100980000000000",
+      "totalSupplyUI": "273730044100980000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -645,8 +645,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "25895618508620000000000",
-      "totalSupplyUI": "25895618508620000000000",
+      "totalSupply": "25931618508620000000000",
+      "totalSupplyUI": "25931618508620000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -657,8 +657,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "47776479442610000000000",
-      "totalSupplyUI": "47776479442610000000000",
+      "totalSupply": "47797479442610000000000",
+      "totalSupplyUI": "47797479442610000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -681,8 +681,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "178292681448030000000000",
-      "totalSupplyUI": "178292681448030000000000",
+      "totalSupply": "178451269481640000000000",
+      "totalSupplyUI": "178451269481640000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -693,8 +693,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "60523151010930000000000",
-      "totalSupplyUI": "60523151010930000000000",
+      "totalSupply": "60658085824660000000000",
+      "totalSupplyUI": "60658085824660000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -717,8 +717,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "59704650949010000000000",
-      "totalSupplyUI": "59704650949010000000000",
+      "totalSupply": "60127749076860000000000",
+      "totalSupplyUI": "60127749076860000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -753,8 +753,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "572375536749810000000000",
-      "totalSupplyUI": "572375536749810000000000",
+      "totalSupply": "573378212899580000000000",
+      "totalSupplyUI": "573378212899580000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -789,8 +789,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "32240505140860000000000",
-      "totalSupplyUI": "32240505140860000000000",
+      "totalSupply": "32269766701250000000000",
+      "totalSupplyUI": "32269766701250000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -873,8 +873,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "7602257490380000000000",
-      "totalSupplyUI": "7602257490380000000000",
+      "totalSupply": "7616257490380000000000",
+      "totalSupplyUI": "7616257490380000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -921,8 +921,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "17208052617860000000000",
-      "totalSupplyUI": "17208052617860000000000",
+      "totalSupply": "17331937021010000000000",
+      "totalSupplyUI": "17331937021010000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -945,8 +945,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "533667477579470000000000",
-      "totalSupplyUI": "533667477579470000000000",
+      "totalSupply": "533667588784520000000000",
+      "totalSupplyUI": "533667588784520000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -957,8 +957,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "67558775995690000000000",
-      "totalSupplyUI": "67558775995690000000000",
+      "totalSupply": "67630733529640000000000",
+      "totalSupplyUI": "67630733529640000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -969,8 +969,8 @@
       "decimals": 18,
       "uiMultiplier": "1000000000000000000",
       "deviationBps": 0,
-      "totalSupply": "70632437332920000000000",
-      "totalSupplyUI": "70632437332920000000000",
+      "totalSupply": "70636437332920000000000",
+      "totalSupplyUI": "70636437332920000000000",
       "hiddenSupply": "0",
       "pending": null
     },
@@ -1007,9 +1007,9 @@
       "decimals": 18,
       "uiMultiplier": "1009026219854107205",
       "deviationBps": 90.262,
-      "totalSupply": "139399696622700000000000",
-      "totalSupplyUI": "140657948932012335831562",
-      "hiddenSupply": "1258252309312335831562",
+      "totalSupply": "139407625058890000000000",
+      "totalSupplyUI": "140665948932010486031646",
+      "hiddenSupply": "1258323873120486031646",
       "pending": null
     },
     {
@@ -1043,9 +1043,9 @@
       "decimals": 18,
       "uiMultiplier": "1003804323223530061",
       "deviationBps": 38.043,
-      "totalSupply": "16862232403490000000000",
-      "totalSupplyUI": "16926381785823158125018",
-      "hiddenSupply": "64149382333158125018",
+      "totalSupply": "16898257748850000000000",
+      "totalSupplyUI": "16962544183241146863944",
+      "hiddenSupply": "64286434391146863944",
       "pending": null
     },
     {
@@ -1067,9 +1067,9 @@
       "decimals": 18,
       "uiMultiplier": "1002349416320445721",
       "deviationBps": 23.494,
-      "totalSupply": "203046113324560000000000",
-      "totalSupplyUI": "203523153177007792637496",
-      "hiddenSupply": "477039852447792637496",
+      "totalSupply": "203051046017840000000000",
+      "totalSupplyUI": "203528097459237888422430",
+      "hiddenSupply": "477051441397888422430",
       "pending": null
     },
     {
@@ -1103,9 +1103,9 @@
       "decimals": 18,
       "uiMultiplier": "1001729792036835231",
       "deviationBps": 17.297,
-      "totalSupply": "19768282601900000000000",
-      "totalSupplyUI": "19802477619726675060914",
-      "hiddenSupply": "34195017826675060914",
+      "totalSupply": "19768766389150000000000",
+      "totalSupplyUI": "19802962243828007633329",
+      "hiddenSupply": "34195854678007633329",
       "pending": null
     },
     {
@@ -1115,9 +1115,9 @@
       "decimals": 18,
       "uiMultiplier": "1001347622058686173",
       "deviationBps": 13.476,
-      "totalSupply": "34468459997690000000000",
-      "totalSupplyUI": "34514910454711828999648",
-      "hiddenSupply": "46450457021828999648",
+      "totalSupply": "34494031679300000000000",
+      "totalSupplyUI": "34540516597284044335198",
+      "hiddenSupply": "46484917984044335198",
       "pending": null
     },
     {
@@ -1151,9 +1151,9 @@
       "decimals": 18,
       "uiMultiplier": "1001269208611258122",
       "deviationBps": 12.692,
-      "totalSupply": "41829566031890000000000",
-      "totalSupplyUI": "41882656477302865019848",
-      "hiddenSupply": "53090445412865019848",
+      "totalSupply": "41837282610870000000000",
+      "totalSupplyUI": "41890382850231355889263",
+      "hiddenSupply": "53100239361355889263",
       "pending": null
     },
     {
@@ -1163,9 +1163,9 @@
       "decimals": 18,
       "uiMultiplier": "1001229509379034956",
       "deviationBps": 12.295,
-      "totalSupply": "2103275759800000000000",
-      "totalSupplyUI": "2105861757073370973271",
-      "hiddenSupply": "2585997273370973271",
+      "totalSupply": "2105273303800000000000",
+      "totalSupplyUI": "2107861757072454008273",
+      "hiddenSupply": "2588453272454008273",
       "pending": null
     },
     {
@@ -1175,9 +1175,9 @@
       "decimals": 18,
       "uiMultiplier": "1000778223752807865",
       "deviationBps": 7.782,
-      "totalSupply": "183733138729180000000000",
-      "totalSupplyUI": "183876124221916990543602",
-      "hiddenSupply": "142985492736990543602",
+      "totalSupply": "183737054012530000000000",
+      "totalSupplyUI": "183880042552233492486752",
+      "hiddenSupply": "142988539703492486752",
       "pending": null
     },
     {
@@ -1199,9 +1199,9 @@
       "decimals": 18,
       "uiMultiplier": "1000724838657573033",
       "deviationBps": 7.248,
-      "totalSupply": "89299099477500000000000",
-      "totalSupplyUI": "89363826916887751832588",
-      "hiddenSupply": "64727439387751832588",
+      "totalSupply": "89441807441380000000000",
+      "totalSupplyUI": "89506638321016715592670",
+      "hiddenSupply": "64830879636715592670",
       "pending": null
     },
     {
@@ -1235,9 +1235,9 @@
       "decimals": 18,
       "uiMultiplier": "1000478058978107511",
       "deviationBps": 4.78,
-      "totalSupply": "85810212418280000000000",
-      "totalSupplyUI": "85851234760739871387065",
-      "hiddenSupply": "41022342459871387065",
+      "totalSupply": "85811211940440000000000",
+      "totalSupplyUI": "85852234760730413792477",
+      "hiddenSupply": "41022820290413792477",
       "pending": null
     },
     {
@@ -1247,9 +1247,9 @@
       "decimals": 18,
       "uiMultiplier": "1000441939278863313",
       "deviationBps": 4.419,
-      "totalSupply": "30203736511420000000000",
-      "totalSupplyUI": "30217084728952834471933",
-      "hiddenSupply": "13348217532834471933",
+      "totalSupply": "31408693773190000000000",
+      "totalSupplyUI": "31422574508666162218004",
+      "hiddenSupply": "13880735476162218004",
       "pending": null
     },
     {
@@ -1271,14 +1271,14 @@
       "decimals": 18,
       "uiMultiplier": "1000107512568805603",
       "deviationBps": 1.075,
-      "totalSupply": "41449681733020000000000",
-      "totalSupplyUI": "41454138094779291658548",
-      "hiddenSupply": "4456361759291658548",
+      "totalSupply": "41467447774550000000000",
+      "totalSupplyUI": "41471906046382054055873",
+      "hiddenSupply": "4458271832054055873",
       "pending": null
     }
   ],
   "pending": [],
-  "hiddenShareCount": "2489603287465543475331",
-  "elapsedMs": 6714,
+  "hiddenShareCount": "2490512433104998263697",
+  "elapsedMs": 12509,
   "rpcCalls": 4
 }

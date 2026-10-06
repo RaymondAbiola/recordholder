@@ -1,7 +1,7 @@
 import type { Address, PublicClient } from "viem";
-import { bep677Abi } from "./abi.js";
-import { deviationBps, toUIAmount } from "./bep677.js";
-import { loadCatalogue, type CatalogueToken } from "./catalogue.js";
+import { bep677Abi } from "./abi";
+import { deviationBps, toUIAmount } from "./bep677";
+import { loadCatalogue, type CatalogueToken } from "./catalogue";
 
 export type SweepRow = {
   symbol: string;

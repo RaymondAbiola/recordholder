@@ -9,9 +9,9 @@ import { writeFileSync, existsSync, readFileSync } from "node:fs";
 import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { getAddress, isAddress, type Address } from "viem";
-import { client } from "../src/config.js";
-import { bep677Abi, INTERFACE_IDS } from "../src/abi.js";
-import { CATALOGUE_PATH, type Catalogue, type CatalogueToken } from "../src/catalogue.js";
+import { client } from "../src/config";
+import { bep677Abi, INTERFACE_IDS } from "../src/abi";
+import { CATALOGUE_PATH, type Catalogue, type CatalogueToken } from "../src/catalogue";
 
 const COINGECKO = "https://api.coingecko.com/api/v3/coins/list?include_platform=true";
 const PLATFORMS = ["binance-smart-chain", "bnb-smart-chain"] as const;

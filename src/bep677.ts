@@ -1,5 +1,5 @@
 import type { Address, PublicClient } from "viem";
-import { bep677Abi, INTERFACE_IDS } from "./abi.js";
+import { bep677Abi, INTERFACE_IDS } from "./abi";
 
 // --- the whole correction, with no dependencies ---------------------------
 // Under ERC-8056 / BEP-677, balanceOf() and totalSupply() return RAW amounts.

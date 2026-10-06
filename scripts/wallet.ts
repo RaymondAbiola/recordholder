@@ -1,7 +1,7 @@
 import { formatUnits, isAddress, type Address } from "viem";
-import { client, archiveClient } from "../src/config.js";
-import { loadEvents } from "../src/snapshot.js";
-import { walletReport } from "../src/wallet.js";
+import { client, archiveClient } from "../src/config";
+import { loadEvents } from "../src/snapshot";
+import { walletReport } from "../src/wallet";
 
 const account = process.argv[2];
 if (!account || !isAddress(account)) {

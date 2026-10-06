@@ -1,8 +1,8 @@
 import type { Address, PublicClient } from "viem";
-import { bep677Abi } from "./abi.js";
-import { WAD, toUIAmount } from "./bep677.js";
-import { loadCatalogue, type CatalogueToken } from "./catalogue.js";
-import { mapLimit, type MultiplierEvent } from "./events.js";
+import { bep677Abi } from "./abi";
+import { WAD, toUIAmount } from "./bep677";
+import { loadCatalogue, type CatalogueToken } from "./catalogue";
+import { mapLimit, type MultiplierEvent } from "./events";
 
 export type WalletPosition = {
   token: CatalogueToken;
@@ -79,7 +79,9 @@ export async function attributeEvents(
   account: Address,
   events: readonly MultiplierEvent[],
   heldNow: ReadonlySet<string>,
-  concurrency = 5
+  // one historical read per event, and they are independent. the ceiling is the
+  // archive provider's rate limit, not anything here.
+  concurrency = 12
 ): Promise<{ held: HeldEvent[]; missedEntirely: MultiplierEvent[] }> {
   const results = await mapLimit(events, concurrency, async (event) => {
     let rawAtEvent: bigint;

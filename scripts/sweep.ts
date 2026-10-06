@@ -1,8 +1,8 @@
 import { writeFileSync } from "node:fs";
 import { formatUnits } from "viem";
-import { client } from "../src/config.js";
-import { sweep } from "../src/sweep.js";
-import { SWEEP_PATH } from "../src/snapshot.js";
+import { client } from "../src/config";
+import { sweep } from "../src/sweep";
+import { SWEEP_PATH } from "../src/snapshot";
 
 const s = await sweep(client);
 

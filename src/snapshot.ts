@@ -1,11 +1,10 @@
 import { readFileSync, existsSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
-import type { Sweep, SweepRow } from "./sweep.js";
-import type { MultiplierEvent, TokenHistory } from "./events.js";
+import { join } from "node:path";
+import type { Sweep, SweepRow } from "./sweep";
+import type { MultiplierEvent, TokenHistory } from "./events";
 
-const here = dirname(fileURLToPath(import.meta.url));
-const dataDir = join(here, "..", "data");
+// see the note in catalogue.ts on why this is cwd-relative
+const dataDir = join(process.cwd(), "data");
 
 export const SWEEP_PATH = join(dataDir, "sweep.json");
 export const EVENTS_PATH = join(dataDir, "events.json");

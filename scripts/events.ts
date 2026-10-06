@@ -1,10 +1,10 @@
 import { writeFileSync } from "node:fs";
 import { formatUnits } from "viem";
-import { archiveClient } from "../src/config.js";
-import { loadCatalogue } from "../src/catalogue.js";
-import { scanAtBlock, detectHistory, mapLimit, type TokenHistory } from "../src/events.js";
-import { WAD } from "../src/bep677.js";
-import { EVENTS_PATH } from "../src/snapshot.js";
+import { archiveClient } from "../src/config";
+import { loadCatalogue } from "../src/catalogue";
+import { scanAtBlock, detectHistory, mapLimit, type TokenHistory } from "../src/events";
+import { WAD } from "../src/bep677";
+import { EVENTS_PATH } from "../src/snapshot";
 
 // bStocks predates none of this; 112.5M is comfortably before the first listing.
 const START = 112_500_000n;

@@ -1,6 +1,6 @@
-import { client, archiveClient, rpcUrls, KNOWN_EVENT } from "../src/config.js";
-import { bep677Abi, INTERFACE_IDS } from "../src/abi.js";
-import { WAD } from "../src/bep677.js";
+import { client, archiveClient, rpcUrls, KNOWN_EVENT } from "../src/config";
+import { bep677Abi, INTERFACE_IDS } from "../src/abi";
+import { WAD } from "../src/bep677";
 
 const SAMPLE = [
   { symbol: "TSLAB", address: "0x5b1910eAaD6450E50f816082Aa078C41F10C292f" },

@@ -1,6 +1,5 @@
 import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
+import { join } from "node:path";
 import type { Address } from "viem";
 
 export type Issuer = "bstocks" | "ondo" | "xstocks";
@@ -23,8 +22,10 @@ export type Catalogue = {
   tokens: CatalogueToken[];
 };
 
-const here = dirname(fileURLToPath(import.meta.url));
-export const CATALOGUE_PATH = join(here, "..", "data", "tokens.json");
+// Resolved from cwd, not from import.meta.url: Next bundles server code into chunks
+// whose location bears no relation to src/, so a module-relative path breaks in
+// production while working fine under tsx. npm scripts and Vercel both run from root.
+export const CATALOGUE_PATH = join(process.cwd(), "data", "tokens.json");
 
 let cached: Catalogue | null = null;
 
