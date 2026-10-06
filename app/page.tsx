@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { buildOverview, amount, bps, duration, utcDate, utcDateTime } from "@/src/view";
 
 export const revalidate = 300;
@@ -168,11 +169,16 @@ export default function Home() {
 
       <section className="section">
         <h2>Most recent actions</h2>
+        <p className="lede">
+          The six latest of {o.events.length}. <Link href="/actions">See the complete record</Link>,
+          with announcement blocks and notice periods for each.
+        </p>
         <div className="scroller">
           <table className="ledger">
             <thead>
               <tr>
                 <th>Effective</th>
+                <th>Security</th>
                 <th>Ticker</th>
                 <th className="r">Step, bps</th>
                 <th className="r">Notice</th>
@@ -184,6 +190,7 @@ export default function Home() {
                   <td className="num" style={{ fontSize: "0.8125rem" }}>
                     {utcDate(e.effectiveAt)}
                   </td>
+                  <td>{e.underlying}</td>
                   <td className="sym">{e.symbol}</td>
                   <td className="r">{bps(e.stepBps)}</td>
                   <td className="r quiet">
@@ -194,6 +201,14 @@ export default function Home() {
             </tbody>
           </table>
         </div>
+      </section>
+
+      <section className="section">
+        <h2>Where these shares sit</h2>
+        <p className="lede">
+          Venus and Lista both take these securities as lending collateral, valuing a raw balance
+          against a price feed. <Link href="/exposure">What that means, and what was checked</Link>.
+        </p>
       </section>
 
       <footer className="colophon">
