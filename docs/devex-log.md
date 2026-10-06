@@ -1,5 +1,95 @@
 # Developer experience log
 
+## 2026-10-06 — the Web3 API's auth scheme is not the documented Binance one
+
+**Trying to:** make any authenticated call to the Binance Web3 API.
+
+**Expected:** the Binance signing scheme every tutorial and the spot API docs describe.
+HMAC-SHA256 hex over the query string, `timestamp` as epoch milliseconds in the query,
+`signature` appended, `X-MBX-APIKEY` header.
+
+**Got:** none of that. The Web3 API uses a different scheme entirely:
+
+```
+timestamp = ISO 8601 with milliseconds   2026-10-06T05:06:12.050Z
+preHash   = timestamp + METHOD + "/build" + path + ("?" + query) + body
+signature = base64( HMAC_SHA256(secret, preHash) )
+
+X-OC-APIKEY, X-OC-TIMESTAMP, X-OC-SIGN, X-OC-RECV-WINDOW, X-OC-NONCE
+```
+
+Four separate departures: base64 rather than hex, a structured pre-hash rather than the
+bare query string, the literal string `/build` baked inside the signed path, and the
+timestamp as a header rather than a parameter. An implementation written from the
+documented spot scheme fails on every call, and the failure arrives as an auth rejection
+with nothing pointing at which of the four assumptions was wrong.
+
+**How I ended up finding it:** `developers.binance.com` returns **HTTP 202 with a
+zero-byte body** to a plain client, so the reference is not reachable programmatically at
+all. The scheme had to be recovered by downloading three published wheels in sequence:
+`binance-web3-wallet` imports from `binance_web3_common`, which is a separate package from
+`binance_common`, and only the first of those contains the `X-OC-*` assembly. The useful
+by-product is the exact endpoint list, 65 paths.
+
+**Cost:** roughly two hours, nearly all of it establishing facts that one correct example
+request in reachable documentation would have conveyed in a minute.
+
+**Would fix it:** serve the docs to non-browser clients, and publish one worked example
+showing the pre-hash string for a real request. The signing is not complicated; it is
+simply undiscoverable, and it differs from the scheme a developer will arrive with.
+
+---
+
+## 2026-10-06 — CORRECTION to the enumeration entry below
+
+The earlier entry claims there is no authoritative source for the bStocks token set and
+that discovery is left to a third-party listing site. **That is wrong and should not go in
+the report as written.**
+
+There is a first-party endpoint, `GET /api/v1/dex/market/rwa/tokens`, taking a
+`platformId` and returning the issuer's own token list. There is also
+`/api/v1/dex/market/rwa/price`, `/rwa/platforms`, `/rwa/underlying-profile` and
+`/rwa/underlying-market`. An entire RWA surface exists.
+
+The accurate version of the complaint is narrower and more interesting: the data exists,
+but only behind an authenticated API whose documentation is not reachable programmatically,
+and nowhere on chain. A consumer cannot answer "what is the complete set of bStocks" from
+BNB Chain itself, and cannot discover that an answer exists without first obtaining a key.
+CoinGecko was not the best source available, it was the only *discoverable* one.
+
+Worth noting for the three-issuer comparison the report asks for: the published client's
+platform enum contains exactly `ondo` and `bstock`. **xStocks is absent**, though the
+hackathon names all three as acceptable. Confirm against the live `/rwa/platforms`
+response before stating it, since a published client can lag its API.
+
+---
+
+## OPEN — Binance Web3 API, first contact
+
+The client and the balance comparison are written and verified as far as they can be
+without a live call. What is missing can only be measured by whoever holds the key, and
+some of it exists only in the moment:
+
+- [ ] **Time from opening the documentation to the first successful call.** Start a timer
+      when the portal docs open. This cannot be reconstructed afterwards.
+- [ ] Confirm `BINANCE_BSC_CHAIN_ID` from the `/dex/balance/supported/chain` response.
+      EVM chains may use the plain chain id (56) while Solana and Tron use `CT_501` and
+      `CT_195`, which look like SLIP-44 coin types, so BSC could be `CT_714`. Unresolved.
+- [ ] Error message quality on a wrong path, an unsigned request, and a key not yet
+      enabled for the Web3 API. Quote them verbatim, including whether the status code
+      matched the message.
+- [ ] Latency of the call, and whether it varies with the number of tokens returned.
+- [ ] The response shape, since it had to be guessed at. Paste the first response.
+- [ ] **The finding itself:** raw balances or multiplier-adjusted? Paste the comparison
+      table from `npm run binance:balances` verbatim either way.
+
+Run `npm run binance:probe` first: it establishes the chain id and the platform list.
+Then `npm run binance:balances -- <address>`. Lista Moolah
+(`0x8F73b65B4caAf64FBA2aF91cC5D4a2A1318E5D8C`) holds 22 of the 23 divergent securities, so
+it produces the widest comparison in one call.
+
+---
+
 Append-only. Written at the moment something costs time, because friction becomes
 invisible once you have worked around it.
 

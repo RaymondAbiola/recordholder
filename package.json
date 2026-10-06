@@ -14,6 +14,8 @@
     "sweep": "tsx scripts/sweep.ts",
     "events": "tsx scripts/events.ts",
     "wallet": "tsx scripts/wallet.ts",
+    "binance:probe": "tsx scripts/binance-probe.ts",
+    "binance:balances": "tsx scripts/binance-balances.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
