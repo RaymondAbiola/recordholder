@@ -1,13 +1,6 @@
+import "./env";
 import { createPublicClient, http } from "viem";
 import { bsc } from "viem/chains";
-
-for (const f of [".env.local", ".env"]) {
-  try {
-    process.loadEnvFile(f);
-  } catch {
-    // absent is fine, defaults below keep the repo runnable on a fresh clone
-  }
-}
 
 const RPC = process.env.BSC_RPC_URL || "https://bsc-dataseed.binance.org";
 

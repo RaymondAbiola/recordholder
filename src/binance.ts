@@ -12,6 +12,7 @@
 // and that the timestamp is a header rather than a query parameter. Starting from the
 // documented spot signing scheme produces a signature that is rejected every time.
 
+import "./env";
 import { createHmac, timingSafeEqual } from "node:crypto";
 
 const DEFAULT_BASE = "https://web3.binance.com/build";
