@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light dark;
   --paper: #faf8f3;
   --paper-sunk: #f2efe6;
   --ink: #1b1a15;
@@ -7,6 +8,7 @@
   --rule: #ddd7c8;
   --rule-strong: #b8b1a0;
   --discrepancy: #8a2e1c;
+  --bar: #747370;
   --measure: 61rem;
 }
 
@@ -20,6 +22,7 @@
     --rule: #2e3038;
     --rule-strong: #474a54;
     --discrepancy: #d4705c;
+    --bar: #94928d;
   }
 }
 
@@ -393,6 +396,7 @@ sup.fn {
     --rule: #bbb;
     --rule-strong: #666;
     --discrepancy: #000;
+    --bar: #555;
   }
   .sheet {
     padding: 0;
@@ -427,7 +431,7 @@ sup.fn {
 }
 
 .crow {
-  height: 1.4rem;
+  height: 22px;
 }
 
 .ctrack {
@@ -461,16 +465,15 @@ sup.fn {
 .cbar {
   position: absolute;
   left: 0;
-  top: 28%;
-  height: 44%;
-  background: var(--ink);
-  opacity: 0.6;
+  top: 7px;
+  height: 8px;
+  background: var(--bar);
 }
 
 .cval {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0;
+  line-height: 22px;
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.6875rem;
   color: var(--muted);
@@ -478,7 +481,7 @@ sup.fn {
 }
 
 .chart .chead:first-child {
-  height: 1.6rem;
+  height: 26px;
 }
 
 .cref {
@@ -493,7 +496,7 @@ sup.fn {
 }
 
 .caxis {
-  height: 1.4rem;
+  height: 22px;
   border-top: 1px solid var(--rule-strong);
 }
 

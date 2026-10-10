@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Source_Serif_4, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -15,6 +15,13 @@ const mono = IBM_Plex_Mono({
   variable: "--font-mono",
 });
 
+// The page has its own light and dark themes. Declaring that tells browsers not to run their
+// forced-dark algorithm on top, which otherwise inverts the chart bars to near-black on phones
+// with a "dark pages" setting.
+export const viewport: Viewport = {
+  colorScheme: "light dark",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://recordholder.vercel.app"),
   title: "Recordholder",
@@ -27,6 +34,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   twitter: { card: "summary_large_image" },
+  other: { "darkreader-lock": "true" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
