@@ -1,6 +1,7 @@
 "use client";
 
 import { Brand } from "@/app/brand";
+import { SiteNav, Jump, SiteFooter } from "@/app/site-nav";
 
 export default function StatementError({ reset }: { error: Error; reset: () => void }) {
   return (
@@ -13,6 +14,8 @@ export default function StatementError({ reset }: { error: Error; reset: () => v
           <p className="subtitle">Statement of corporate actions</p>
         </div>
       </header>
+
+      <SiteNav current="none" />
       <section className="section">
         <h2>The record could not be reconstructed</h2>
         <p className="lede">

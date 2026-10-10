@@ -1,5 +1,6 @@
 import { loadEvents } from "@/src/snapshot";
 import { Brand } from "@/app/brand";
+import { SiteNav, Jump, SiteFooter } from "@/app/site-nav";
 
 export default function Loading() {
   const total = loadEvents()?.events.length;
@@ -14,6 +15,8 @@ export default function Loading() {
         </div>
         <div className="label">Compiling</div>
       </header>
+
+      <SiteNav current="none" />
 
       <section className="section">
         <h2>Reconstructing the record</h2>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Brand } from "@/app/brand";
+import { SiteNav, Jump, SiteFooter } from "@/app/site-nav";
 import { NoticeChart } from "@/app/notice-chart";
 import { buildOverview, amount, bps, duration, utcDate, utcDateTime } from "@/src/view";
 
@@ -41,6 +42,18 @@ export default function Home() {
           {utcDateTime(o.asOf.timestamp)} UTC
         </div>
       </header>
+
+      <SiteNav current="record" />
+      <Jump
+        items={[
+          { id: "example", label: "Worked example" },
+          { id: "lookup", label: "Look up an address" },
+          { id: "warning", label: "Warning time" },
+          { id: "securities", label: "Securities" },
+          { id: "recent", label: "Recent actions" },
+          { id: "where", label: "Where the shares sit" },
+        ]}
+      />
 
       <p className="thesis">
         bStocks, Binance&rsquo;s tokenized stocks on BNB Chain, pay out dividends by moving a hidden
@@ -88,7 +101,7 @@ export default function Home() {
       </section>
 
       {o.example && (
-        <section className="section">
+        <section className="section" id="example">
           <h2>
             Worked example: {o.example.underlying}{" "}
             <span className="num" style={{ fontSize: "0.8em", color: "var(--muted)" }}>
@@ -130,7 +143,7 @@ export default function Home() {
         </section>
       )}
 
-      <section className="section">
+      <section className="section" id="lookup">
         <h2>Look up an address</h2>
         <p className="lede">
           Any BNB Chain address. The record shows what it holds, what each corporate action paid
@@ -150,7 +163,7 @@ export default function Home() {
       </section>
 
       {o.notice && (
-        <section className="section">
+        <section className="section" id="warning">
           <h2>How much warning integrators get</h2>
           <p className="lede">
             A multiplier change is announced on chain through{" "}
@@ -173,7 +186,7 @@ export default function Home() {
         </section>
       )}
 
-      <section className="section">
+      <section className="section" id="securities">
         <h2>Securities holding undisclosed shares</h2>
         <p className="lede">
           Raw supply is what every balance call reports. True supply is what holders collectively
@@ -215,7 +228,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section" id="recent">
         <h2>Most recent actions</h2>
         <p className="lede">
           The six latest of {o.events.length}. <Link href="/actions">See the complete record</Link>,
@@ -251,7 +264,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section" id="where">
         <h2>Where these shares sit</h2>
         <p className="lede">
           Venus and Lista both take these securities as lending collateral, valuing a raw balance
@@ -313,6 +326,7 @@ export default function Home() {
           are <span className="num">raw × uiMultiplier ÷ 1e18</span>. Every figure here is two
           contract calls from being checked independently.
         </p>
+        <SiteFooter />
       </footer>
     </main>
   );

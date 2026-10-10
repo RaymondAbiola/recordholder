@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Brand } from "@/app/brand";
+import { SiteNav, Jump, SiteFooter } from "@/app/site-nav";
 import { notFound } from "next/navigation";
 import { isAddress, getAddress, type Address } from "viem";
 import { client, archiveClient } from "@/src/config";
@@ -40,6 +41,25 @@ export default async function WalletRecord({
         </div>
       </header>
 
+      <SiteNav current="none" />
+      <form className="lookup" action="/lookup" method="get">
+        <input
+          name="address"
+          placeholder="Look up another address, 0x…"
+          aria-label="BNB Chain address"
+          spellCheck={false}
+          autoComplete="off"
+          required
+        />
+        <button type="submit">Open record</button>
+      </form>
+      <Jump
+        items={[
+          { id: "actions", label: "Corporate actions" },
+          { id: "holdings", label: "Holdings" },
+        ]}
+      />
+
       <section className="figures">
         <div className="figure">
           <span className="label">Shares this account is not shown</span>
@@ -73,7 +93,7 @@ export default async function WalletRecord({
         </div>
       </section>
 
-      <section className="section">
+      <section className="section" id="actions">
         <h2>Corporate actions</h2>
         {r.held.length === 0 ? (
           <p className="lede">
@@ -138,7 +158,7 @@ export default async function WalletRecord({
         )}
       </section>
 
-      <section className="section">
+      <section className="section" id="holdings">
         <h2>Holdings</h2>
         {r.positions.length === 0 ? (
           <p className="lede">This account holds no tokenized stocks today.</p>
@@ -203,9 +223,7 @@ export default async function WalletRecord({
           transfers, so it never fires for a corporate action. This statement exists because that
           record does not.
         </p>
-        <p>
-          <Link href="/">Back to the record</Link>
-        </p>
+        <SiteFooter />
       </footer>
     </main>
   );

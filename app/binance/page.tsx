@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Brand } from "@/app/brand";
+import { SiteNav, Jump, SiteFooter } from "@/app/site-nav";
 import { loadBalances, binanceFindings, loadQuotes, summariseQuotes, valueCheck } from "@/src/binance-data";
 
 export const metadata = { title: "What Binance's API reports | Recordholder" };
@@ -42,13 +43,25 @@ export default function BinancePage() {
         </div>
       </header>
 
+      <SiteNav current="binance" />
+      <Jump
+        items={[
+          { id: "holdings", label: "Holdings" },
+          { id: "disagree", label: "Disagreements" },
+          { id: "issuers", label: "Other issuers" },
+          { id: "cost-holder", label: "Cost to a holder" },
+          { id: "cost-trade", label: "Cost to trade" },
+          { id: "unknown", label: "Not established" },
+        ]}
+      />
+
       <p className="thesis">
         Binance publishes a Web3 API for the tokens it issues. Asked what an account holds, it returns
         the raw token amount, which leaves out the multiplier. The multiplier is available from the
         same API, in a different endpoint, and nothing joins the two.
       </p>
 
-      <section className="section">
+      <section className="section" id="holdings">
         <h2>The same holdings, two answers</h2>
         <p className="lede">
           {cap.accountLabel || "One account"} (<span className="addr">{cap.account}</span>) was read
@@ -104,7 +117,7 @@ export default function BinancePage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section" id="disagree">
         <h2>Where the API disagrees with itself</h2>
         <div className="scroller">
           <table className="ledger">
@@ -152,7 +165,7 @@ export default function BinancePage() {
         </p>
       </section>
 
-      <section className="section">
+      <section className="section" id="issuers">
         <h2>The other issuers, and market hours</h2>
         <div className="scroller">
           <table className="ledger">
@@ -198,7 +211,7 @@ export default function BinancePage() {
         </p>
       </section>
 
-      <section className="section">
+      <section className="section" id="cost-holder">
         <h2>What it does and does not cost a holder</h2>
         <p className="lede">
           Each balance row also carries a <span className="num">tokenPrice</span>. Compared with the
@@ -217,7 +230,7 @@ export default function BinancePage() {
       </section>
 
       {qs && (
-        <section className="section">
+        <section className="section" id="cost-trade">
           <h2>What it costs to trade them</h2>
           <p className="lede">
             Prices requested from Binance&rsquo;s aggregator for buying with USDT at five order sizes. Quotes
@@ -270,7 +283,7 @@ export default function BinancePage() {
         </section>
       )}
 
-      <section className="section">
+      <section className="section" id="unknown">
         <h2>Not established</h2>
         <p className="lede">
           Why the platform summary and the token list disagree on how many tokens exist. Which price
@@ -287,9 +300,7 @@ export default function BinancePage() {
           The balance capture dates from {cap.capturedAt}; the token list from {f.fetchedAt.slice(0, 10)}.
           The 91 and 458 counts come from the platform summary on that date.
         </p>
-        <p>
-          <Link href="/">Back to the record</Link> &nbsp;·&nbsp; <Link href="/exposure">Where these shares sit</Link>
-        </p>
+        <SiteFooter />
       </footer>
     </main>
   );

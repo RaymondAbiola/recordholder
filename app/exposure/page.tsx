@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Brand } from "@/app/brand";
+import { SiteNav, Jump, SiteFooter } from "@/app/site-nav";
 import { client } from "@/src/config";
 import { loadSweep } from "@/src/snapshot";
 import { readExposure, VENUS_PRICE_PATH_AUDIT } from "@/src/venues";
@@ -34,6 +35,15 @@ export default async function Exposure() {
         </div>
       </header>
 
+      <SiteNav current="exposure" />
+      <Jump
+        items={[
+          { id: "venus", label: "Venus" },
+          { id: "lista", label: "Lista" },
+          { id: "audit", label: "What was checked" },
+        ]}
+      />
+
       <section className="section">
         <h2>Lending protocols hold these securities as collateral</h2>
         <p className="lede">
@@ -44,7 +54,7 @@ export default async function Exposure() {
       </section>
 
       {exposures.map((e) => (
-        <section className="section" key={e.venue.key}>
+        <section className="section" id={e.venue.key} key={e.venue.key}>
           <h2>{e.venue.name}</h2>
           <p className="lede">{e.venue.detail}</p>
           {e.holdings.length === 0 ? (
@@ -93,7 +103,7 @@ export default async function Exposure() {
         </section>
       ))}
 
-      <section className="section">
+      <section className="section" id="audit">
         <h2>What was checked in Venus&rsquo;s price path</h2>
         <p className="lede">
           Collateral value is a balance multiplied by a price. The balance is raw by
@@ -170,10 +180,7 @@ export default async function Exposure() {
           The failure mode is specific to combining a raw balance with a per-share price, or showing
           a raw balance as a share count.
         </p>
-        <p>
-          <Link href="/">Back to the record</Link> &nbsp;·&nbsp;{" "}
-          <Link href="/actions">Complete action record</Link>
-        </p>
+        <SiteFooter />
       </footer>
     </main>
   );

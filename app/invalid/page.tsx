@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Brand } from "@/app/brand";
+import { SiteNav, Jump, SiteFooter } from "@/app/site-nav";
 
 export const metadata = { title: "Not an address | Recordholder" };
 
@@ -14,6 +15,8 @@ export default function Invalid() {
           <p className="subtitle">Statement of corporate actions</p>
         </div>
       </header>
+
+      <SiteNav current="none" />
 
       <section className="section">
         <h2>That is not a valid BNB Chain address</h2>

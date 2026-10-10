@@ -521,3 +521,77 @@ sup.fn {
     display: none;
   }
 }
+
+/* navigation ------------------------------------------------------------- */
+
+.sitenav,
+.jump,
+.footnav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 1.5rem;
+}
+
+.sitenav {
+  padding: 0.7rem 0 0.65rem;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.sitenav a,
+.footnav a {
+  border-bottom: 1px solid transparent;
+  color: var(--muted);
+  padding: 0.15rem 0;
+}
+
+.sitenav a:hover,
+.footnav a:hover {
+  color: var(--ink);
+  border-bottom-color: var(--rule-strong);
+}
+
+.sitenav a[aria-current="page"] {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+.sitenav .push {
+  margin-left: auto;
+}
+
+.jump {
+  margin: 0.9rem 0 0;
+  font-size: 0.875rem;
+}
+
+.jump .label {
+  margin-right: -0.4rem;
+}
+
+.footnav {
+  margin: 1.1rem 0 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 30rem) {
+  .sitenav .push {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+@media print {
+  .sitenav,
+  .jump,
+  .footnav {
+    display: none;
+  }
+}

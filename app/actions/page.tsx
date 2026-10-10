@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Brand } from "@/app/brand";
+import { SiteNav, Jump, SiteFooter } from "@/app/site-nav";
 import { buildOverview, amount, bps, duration, utcDate, utcDateTime } from "@/src/view";
 
 export const revalidate = 300;
@@ -30,7 +31,16 @@ export default function Actions() {
         </div>
       </header>
 
-      <section className="section">
+      <SiteNav current="actions" />
+      <Jump
+        items={[
+          { id: "all", label: "Every action" },
+          { id: "cadence", label: "Cadence" },
+          { id: "notice", label: "Notice against staleness" },
+        ]}
+      />
+
+      <section className="section" id="all">
         <h2>Every recorded action</h2>
         <p className="lede">
           Each row is a dividend or distribution delivered by moving a security&rsquo;s UI
@@ -76,7 +86,7 @@ export default function Actions() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section" id="cadence">
         <h2>Cadence</h2>
         <p className="lede">
           Actions per calendar month, as the catalogue of listed securities grows.
@@ -103,7 +113,7 @@ export default function Actions() {
       </section>
 
       {o.notice && (
-        <section className="section">
+        <section className="section" id="notice">
           <h2>Notice against oracle staleness</h2>
           <div className="scroller">
             <table className="ledger">
@@ -151,10 +161,7 @@ export default function Actions() {
           record these changes are emitted correctly by every token, but no public BNB Chain endpoint
           tested would serve a log range wide enough to read them.
         </p>
-        <p>
-          <Link href="/">Back to the record</Link> &nbsp;·&nbsp;{" "}
-          <Link href="/exposure">Where these shares sit</Link>
-        </p>
+        <SiteFooter />
       </footer>
     </main>
   );
