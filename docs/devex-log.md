@@ -266,29 +266,72 @@ weekday liquidity or RFQ pricing.
 
 ---
 
+## 2026-10-10 — what the API says when a request is wrong (eleven deliberate failures)
+
+Method: `npx tsx scripts/binance-errors.ts` sends eleven requests, each broken in exactly one way,
+and prints the status, content type, timing and body as returned. One control call confirms the
+harness works. Nothing changes state. Responses below are quoted as returned.
+
+| case | HTTP | body `code` | body message |
+| --- | --- | --- | --- |
+| control, valid signed call | 200 | 0 | "success" |
+| wrong path | 404 | none | "No message available" |
+| no credentials | 401 | 40101 | "API Key is required" |
+| wrong signature | 401 | 40102 | "Invalid signature" |
+| timestamp ten minutes old | 401 | 40103 | "Timestamp outside recv_window. serverTime=2026-10-10T21:32:09.000165980Z" |
+| Binance spot-style signing | 401 | 40101 | "API Key is required" |
+| missing required parameter | **200** | 40001 | "Parameter tokenContractAddresses is required" |
+| malformed address `0xnope` | **200** | 0 | "success", with an empty list |
+| unknown chain id `99999` | **200** | 0 | "success", with an empty list |
+| unknown platform `xstocks` | **200** | 40001 | "Platform not found: xstocks" |
+| POST to a GET endpoint | 401 | 40102 | "Invalid signature" |
+
+What is good:
+- **The authentication errors are clear and distinct.** Missing key, wrong signature and stale
+  timestamp each get their own code (40101, 40102, 40103) and HTTP 401.
+- **The stale-timestamp message includes the server's clock** (`serverTime=...`), which is exactly
+  what someone debugging clock skew needs.
+- **Latency was steady:** about 440 to 700 ms per call, and 1,455 ms for the first (a cold connection).
+
+What is not:
+1. **Spot-style signing is reported as a missing key.** The request carried a key, in the header the
+   spot API uses (`X-MBX-APIKEY`), and the reply is "API Key is required". Anyone arriving with the
+   spot scheme, which is most developers, is told to supply something they already supplied, so
+   they debug the wrong thing. The message should name the header the API actually reads, `X-OC-APIKEY`.
+2. **Validation failures come back as HTTP 200.** A missing parameter and an unknown platform are
+   `success:false` inside a 200 response. A client that checks only the HTTP status treats them as
+   success.
+3. **Bad input is silently accepted.** A malformed address (`0xnope`) and a chain id that does not
+   exist (`99999`) both return `code 0, "success"` with an empty list. A mistyped address is
+   indistinguishable from an account that holds nothing, and nothing says the chain does not exist.
+4. **Three different error shapes.** Authentication failures return `{code, timestamp, msg, data}`,
+   validation failures return `{code, msg, data, timestamp, success}`, and an unknown path returns
+   a framework default `{path, error, message, status, timestamp}` whose message is "No message
+   available". The `success` field exists in one shape and not the others, so there is no single
+   field a client can check.
+5. **A wrong HTTP method reports "Invalid signature"** (the signature covers the method), not
+   "method not allowed", so it reads as a signing bug.
+
+The unknown-platform case also gives a first-party confirmation that xStocks is not served:
+`Platform not found: xstocks`.
+
+---
+
 ## OPEN — Binance Web3 API, first contact
 
-The client and the balance comparison are written and verified as far as they can be
-without a live call. What is missing can only be measured by whoever holds the key, and
-some of it exists only in the moment:
+Answered since this checklist was written:
 
-- [ ] **Time from opening the documentation to the first successful call.** Start a timer
-      when the portal docs open. This cannot be reconstructed afterwards.
-- [ ] Confirm `BINANCE_BSC_CHAIN_ID` from the `/dex/balance/supported/chain` response.
-      EVM chains may use the plain chain id (56) while Solana and Tron use `CT_501` and
-      `CT_195`, which look like SLIP-44 coin types, so BSC could be `CT_714`. Unresolved.
-- [ ] Error message quality on a wrong path, an unsigned request, and a key not yet
-      enabled for the Web3 API. Quote them verbatim, including whether the status code
-      matched the message.
-- [ ] Latency of the call, and whether it varies with the number of tokens returned.
-- [ ] The response shape, since it had to be guessed at. Paste the first response.
-- [ ] **The finding itself:** raw balances or multiplier-adjusted? Paste the comparison
-      table from `npm run binance:balances` verbatim either way.
+- [x] Chain id: BSC is `"56"` (client docs, and every bStock listed under it).
+- [x] Error message quality: see the eleven-failure entry above.
+- [x] Latency: roughly 450 to 700 ms per call, about 1.2 to 1.5 s cold; 8 pages of balances in 8.3 s.
+- [x] Response shape: documented in the entries above (`tokenAssets`, `balance`, `rawBalance`, `tokenPrice`).
+- [x] The finding: balances come back raw, in both fields, for 19 of 19 holdings.
 
-Run `npm run binance:probe` first: it establishes the chain id and the platform list.
-Then `npm run binance:balances -- <address>`. Lista Moolah
-(`0x8F73b65B4caAf64FBA2aF91cC5D4a2A1318E5D8C`) holds 22 of the 23 divergent securities, so
-it produces the widest comparison in one call.
+Still open, and only the person who held the key can supply it:
+
+- [ ] **Time from opening the documentation to the first successful call.** The report asks for it
+      explicitly. Use the stopwatch figure, say which part was measured and which was estimated, and
+      do not count the time lost to my own bugs (the env file not loading, the VPN being off).
 
 ---
 
