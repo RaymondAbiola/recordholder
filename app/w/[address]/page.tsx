@@ -93,6 +93,27 @@ export default async function WalletRecord({
         </div>
       </section>
 
+      <div className="exports">
+        {r.held.length > 0 ? (
+          <>
+            <a className="btn" href={`/api/wallet/${account}?format=csv`} download>
+              Download CSV
+            </a>
+            <a className="btn ghost" href={`/api/wallet/${account}`}>
+              View JSON
+            </a>
+            <span className="exports-note">
+              Quantities and dates only. Pricing each credit at its effective date is left to whoever
+              prepares the return.
+            </span>
+          </>
+        ) : (
+          <span className="exports-note">
+            Nothing to export: this account held no tokenized stock when any action took effect.
+          </span>
+        )}
+      </div>
+
       <section className="section" id="actions">
         <h2>Corporate actions</h2>
         {r.held.length === 0 ? (
@@ -106,12 +127,6 @@ export default async function WalletRecord({
               Each row is a dividend or distribution delivered by moving the security&rsquo;s UI
               multiplier. The raw balance did not change in any of them, which is why no wallet,
               explorer or portfolio tracker reported them.
-            </p>
-            <p className="lede">
-              <a href={`/api/wallet/${account}?format=csv`}>Download as CSV</a>
-              {" "}&nbsp;·&nbsp;{" "}
-              <a href={`/api/wallet/${account}`}>JSON</a>. Quantities and dates only. Pricing each
-              credit at its effective date is left to whoever prepares the return.
             </p>
             <div className="scroller">
               <table className="ledger">
