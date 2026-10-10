@@ -152,10 +152,24 @@ export async function call<T = unknown>(
     return {
       ok: false,
       status: null,
-      error: e instanceof Error ? e.message : String(e),
+      error: networkError(e),
       elapsedMs: Date.now() - started,
     };
   }
+}
+
+// Node's fetch reports every network failure as "fetch failed" and hides the reason in
+// error.cause. The reason is the useful part: ENOTFOUND means the name did not resolve
+// (VPN or DNS), ETIMEDOUT or ECONNREFUSED mean it resolved and the connection was refused.
+function networkError(e: unknown): string {
+  if (!(e instanceof Error)) return String(e);
+  const cause = (e as Error & { cause?: { code?: string; message?: string } }).cause;
+  const detail = cause?.code ?? cause?.message;
+  const hint =
+    cause?.code === "ENOTFOUND"
+      ? " (name did not resolve: is the VPN on? binance.com is unreachable without one in some regions)"
+      : "";
+  return detail ? `${e.message}: ${detail}${hint}` : e.message;
 }
 
 /** Shape only, so a key never reaches a log, a transcript or an error message. */

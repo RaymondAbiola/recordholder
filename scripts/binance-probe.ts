@@ -73,6 +73,12 @@ if (platforms) {
   console.log("  recording: the hackathon names all three as acceptable.");
 }
 
+if (!chains && !platforms) {
+  console.error("\nboth calls failed, so nothing below this point is meaningful.");
+  console.error("Fix the cause shown above first, then re-run.");
+  process.exit(1);
+}
+
 const chainId = process.env.BINANCE_BSC_CHAIN_ID;
 if (!chainId) {
   console.log("\nset BINANCE_BSC_CHAIN_ID from the supported chains output, then re-run");
