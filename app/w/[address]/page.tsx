@@ -21,6 +21,7 @@ export default async function WalletRecord({
   if (!snapshot) notFound();
 
   const r = await walletReport(client, archiveClient, account, snapshot.events);
+  const withHidden = r.positions.filter((p) => p.hidden > 0n).length;
 
   return (
     <main className="sheet">
@@ -43,8 +44,8 @@ export default async function WalletRecord({
           <span className="label">Shares this account is not shown</span>
           <span className="value flag num">{shareAmount(r.hiddenNow, 4)}</span>
           <span className="note">
-            Held right now, across {r.positions.length}{" "}
-            {r.positions.length === 1 ? "security" : "securities"}, absent from every balance.
+            Held right now, across {withHidden}{" "}
+            {withHidden === 1 ? "security" : "securities"}, absent from every balance.
           </span>
         </div>
         <div className="figure">
@@ -184,6 +185,11 @@ export default async function WalletRecord({
       </section>
 
       <footer className="colophon">
+        <p>
+          The two headline totals differ on purpose. Shares paid by corporate actions counts only
+          what the account held at the moment of each action. Shares not shown applies to the
+          balances held today, which can be larger or smaller than they were then.
+        </p>
         <p>
           Reconstructed from BNB Chain state. Amounts paid are computed as the raw balance held one
           block before each multiplier took effect, multiplied by the change in that multiplier, and

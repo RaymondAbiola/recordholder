@@ -221,6 +221,23 @@ a:hover {
   border-bottom: 1px solid var(--rule-strong);
 }
 
+/* a gutter between every column, so a right-aligned figure never touches its neighbour */
+.ledger th,
+.ledger td {
+  padding-left: 1.1rem;
+}
+
+.ledger th:first-child,
+.ledger td:first-child {
+  padding-left: 0;
+}
+
+/* dates and tickers are single tokens; letting them wrap splits "2026-07-" from "28" */
+.ledger td.num,
+.ledger td.sym {
+  white-space: nowrap;
+}
+
 .ledger th.r,
 .ledger td.r {
   text-align: right;

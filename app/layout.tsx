@@ -19,6 +19,12 @@ export const metadata: Metadata = {
   title: "Recordholder",
   description:
     "The corporate action and dividend record for BEP-677 tokenized stocks on BNB Chain.",
+  openGraph: {
+    title: "Recordholder",
+    description:
+      "Tokenized stocks on BNB Chain pay dividends by moving a hidden multiplier. No balance changes and nothing reports it. This reconstructs it.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

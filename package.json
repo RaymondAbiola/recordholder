@@ -8,6 +8,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "node --import tsx --test test/*.test.ts",
     "smoke": "tsx scripts/smoke.ts",
     "token": "tsx scripts/token.ts",
     "catalogue": "tsx scripts/catalogue.ts",
