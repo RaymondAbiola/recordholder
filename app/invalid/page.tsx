@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Brand } from "@/app/brand";
 
 export const metadata = { title: "Not an address | Recordholder" };
 
@@ -8,7 +9,7 @@ export default function Invalid() {
       <header className="masthead">
         <div>
           <h1 className="wordmark">
-            <Link href="/">Recordholder</Link>
+            <Brand />
           </h1>
           <p className="subtitle">Statement of corporate actions</p>
         </div>

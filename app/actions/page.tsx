@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Brand } from "@/app/brand";
 import { buildOverview, amount, bps, duration, utcDate, utcDateTime } from "@/src/view";
 
 export const revalidate = 300;
@@ -18,7 +19,7 @@ export default function Actions() {
       <header className="masthead">
         <div>
           <h1 className="wordmark">
-            <Link href="/">Recordholder</Link>
+            <Brand />
           </h1>
           <p className="subtitle">Complete record of corporate actions</p>
         </div>

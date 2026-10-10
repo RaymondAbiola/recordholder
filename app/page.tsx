@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { Brand } from "@/app/brand";
+import { NoticeChart } from "@/app/notice-chart";
 import { buildOverview, amount, bps, duration, utcDate, utcDateTime } from "@/src/view";
 
 export const revalidate = 300;
@@ -9,7 +11,9 @@ export default function Home() {
   if (!o) {
     return (
       <main className="sheet">
-        <h1 className="wordmark">Recordholder</h1>
+        <h1 className="wordmark">
+            <Brand />
+          </h1>
         <p className="lede">
           No snapshot present. Run <span className="num">npm run sweep</span> and{" "}
           <span className="num">npm run events</span>.
@@ -24,7 +28,9 @@ export default function Home() {
     <main className="sheet">
       <header className="masthead">
         <div>
-          <h1 className="wordmark">Recordholder</h1>
+          <h1 className="wordmark">
+            <Brand />
+          </h1>
           <p className="subtitle">
             Corporate action record for tokenized stocks on BNB Chain
           </p>
@@ -36,13 +42,20 @@ export default function Home() {
         </div>
       </header>
 
+      <p className="thesis">
+        bStocks, Binance&rsquo;s tokenized stocks on BNB Chain, pay out dividends by moving a hidden
+        multiplier instead of sending anything.<sup className="fn">1</sup> The balance never changes,
+        so no wallet, explorer or portfolio tracker ever shows it. Recordholder reconstructs what was
+        paid, when, and how little notice anyone got.
+      </p>
+
       <section className="figures">
         <div className="figure">
           <span className="label">Shares outside balanceOf</span>
           <span className="value flag num">{amount(o.hiddenShareCount, 18, 3)}</span>
           <span className="note">
             Owned by holders, reported by nothing. A count across {o.divergentCount} securities,
-            not a value.<sup className="fn">1</sup>
+            not a value.<sup className="fn">2</sup>
           </span>
           {o.priced && (
             <span className="note" style={{ marginTop: "0.5rem" }}>
@@ -69,9 +82,53 @@ export default function Home() {
           <span className="value num">{o.events.length}</span>
           <span className="note">
             Dividends and distributions paid since July 2026, none of which moved a balance.
+            {o.truncatedSymbols.length > 0 && <sup className="fn">4</sup>}
           </span>
         </div>
       </section>
+
+      {o.example && (
+        <section className="section">
+          <h2>
+            Worked example: {o.example.underlying}{" "}
+            <span className="num" style={{ fontSize: "0.8em", color: "var(--muted)" }}>
+              {o.example.symbol}
+            </span>
+          </h2>
+          <p className="lede">
+            The same token, read two ways. Every wallet and explorer shows the first line.
+          </p>
+          <div className="scroller">
+            <table className="ledger">
+              <tbody>
+                <tr>
+                  <td>
+                    What <span className="num">balanceOf</span> and{" "}
+                    <span className="num">totalSupply</span> report
+                  </td>
+                  <td className="r">{amount(o.example.rawSupply, o.example.decimals, 2)}</td>
+                </tr>
+                <tr>
+                  <td>What holders actually own</td>
+                  <td className="r">{amount(o.example.trueShares, o.example.decimals, 2)}</td>
+                </tr>
+                <tr>
+                  <td>
+                    Owned but not reported
+                    {o.example.since !== null && (
+                      <span style={{ color: "var(--muted)" }}>
+                        {" "}
+                        (multiplier {(Number(o.example.multiplier) / 1e18).toFixed(6)} since {utcDate(o.example.since)})
+                      </span>
+                    )}
+                  </td>
+                  <td className="r flag">{amount(o.example.hidden, o.example.decimals, 2)}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
 
       <section className="section">
         <h2>Look up an address</h2>
@@ -101,28 +158,11 @@ export default function Home() {
             all {o.notice.count} actions, that warning is shorter than the window Venus permits its
             price feed for these same securities to be stale.
           </p>
-          <div className="scroller">
-            <table className="ledger">
-              <tbody>
-                <tr>
-                  <td>Shortest notice given</td>
-                  <td className="r">{duration(o.notice.min)}</td>
-                </tr>
-                <tr>
-                  <td>Median notice</td>
-                  <td className="r">{duration(o.notice.median)}</td>
-                </tr>
-                <tr>
-                  <td>Longest notice</td>
-                  <td className="r">{duration(o.notice.max)}</td>
-                </tr>
-                <tr>
-                  <td>Price staleness Venus tolerates</td>
-                  <td className="r flag">{duration(o.oracleStalenessSeconds)}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <NoticeChart events={o.events} stalenessSeconds={o.oracleStalenessSeconds} />
+          <p className="lede" style={{ marginTop: "0.9rem", marginBottom: 0 }}>
+            Shortest {duration(o.notice.min)}, median {duration(o.notice.median)}, longest{" "}
+            {duration(o.notice.max)}.
+          </p>
           <div className="callout flag">
             <p>
               All {o.notice.count} of {o.notice.count} corporate actions were announced with less
@@ -217,20 +257,23 @@ export default function Home() {
           Venus and Lista both take these securities as lending collateral, valuing a raw balance
           against a price feed. <Link href="/exposure">What that means, and what was checked</Link>.
         </p>
+        <p className="lede">
+          Binance&rsquo;s own API returns the same raw balances.{" "}
+          <Link href="/binance">What it reports, next to the chain</Link>.
+        </p>
       </section>
 
       <footer className="colophon">
         <p>
-          <sup className="fn">1</sup> A share count, not a value. One undisclosed NVIDIA share and
+          <sup className="fn">1</sup> Per bStocks documentation, net dividends are reinvested by
+          raising the multiplier, and the step sizes recorded here are consistent with that. The
+          chain itself records only that the multiplier moved, and individual steps were not matched
+          against issuer announcements.
+        </p>
+        <p>
+          <sup className="fn">2</sup> A share count, not a value. One undisclosed NVIDIA share and
           one undisclosed Nokia share are both one share and are not interchangeable.
         </p>
-        {o.truncatedSymbols.length > 0 && (
-          <p>
-            <sup className="fn">2</sup> {o.truncatedSymbols.join(", ")} already carried a multiplier
-            above 1.0 at the earliest block observed, so {o.truncatedSymbols.length === 1 ? "its" : "their"}{" "}
-            earlier history is unknown rather than assumed, and no action is recorded for it.
-          </p>
-        )}
         {o.priced && (
           <p>
             <sup className="fn">3</sup> Per-share reference price published by Binance&rsquo;s RWA
@@ -244,6 +287,13 @@ export default function Home() {
                 undisclosed shares), so the true total is higher.
               </>
             )}
+          </p>
+        )}
+        {o.truncatedSymbols.length > 0 && (
+          <p>
+            <sup className="fn">4</sup> {o.truncatedSymbols.join(", ")} already carried a multiplier
+            above 1.0 at the earliest block observed, so {o.truncatedSymbols.length === 1 ? "its" : "their"}{" "}
+            earlier history is unknown rather than assumed, and no action is recorded for it.
           </p>
         )}
         <p>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Brand } from "@/app/brand";
 import { notFound } from "next/navigation";
 import { isAddress, getAddress, type Address } from "viem";
 import { client, archiveClient } from "@/src/config";
@@ -28,7 +29,7 @@ export default async function WalletRecord({
       <header className="masthead">
         <div>
           <h1 className="wordmark">
-            <Link href="/">Recordholder</Link>
+            <Brand />
           </h1>
           <p className="subtitle">Statement of corporate actions</p>
         </div>

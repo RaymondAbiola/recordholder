@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Brand } from "@/app/brand";
 import { client } from "@/src/config";
 import { loadSweep } from "@/src/snapshot";
 import { readExposure, VENUS_PRICE_PATH_AUDIT } from "@/src/venues";
@@ -24,7 +25,7 @@ export default async function Exposure() {
       <header className="masthead">
         <div>
           <h1 className="wordmark">
-            <Link href="/">Recordholder</Link>
+            <Brand />
           </h1>
           <p className="subtitle">Where the undisclosed shares sit</p>
         </div>

@@ -7,7 +7,7 @@
 //   npm run binance:balances -- <address>
 //   npm run binance:balances -- <address> --dry-run     builds the request, sends nothing
 
-import { readFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { formatUnits, isAddress, getAddress, type Address } from "viem";
 import { client } from "../src/config";
@@ -150,6 +150,7 @@ try {
 }
 const priceTally = new Map<string, number>();
 const priceRows: string[] = [];
+const captured: Record<string, unknown>[] = [];
 
 const tally = { balance: new Map<string, number>(), rawBalance: new Map<string, number>() };
 const bump = (m: Map<string, number>, k: string) => m.set(k, (m.get(k) ?? 0) + 1);
@@ -166,6 +167,16 @@ for (const p of positions) {
   const shares = Number(formatUnits(p.shares, p.token.decimals));
   const b = toNumber(a.balance, p.token.decimals);
   const rb = toNumber(a.rawBalance, p.token.decimals);
+  captured.push({
+    symbol: p.token.symbol,
+    underlying: p.token.underlying,
+    address: p.token.address,
+    chainRaw: raw.toFixed(6),
+    chainShares: shares.toFixed(6),
+    apiBalance: a.balance ?? null,
+    apiRawBalance: a.rawBalance ?? null,
+    apiTokenPrice: a.tokenPrice ?? null,
+  });
   const cb = classify(b, raw, shares);
   const crb = classify(rb, raw, shares);
   bump(tally.balance, cb);
@@ -200,6 +211,27 @@ if (priceTally.size) {
 const show = (m: Map<string, number>) => [...m.entries()].map(([k, v]) => `${k} ${v}`).join(", ") || "none";
 console.log(`\nbalance:    ${show(tally.balance)}`);
 console.log(`rawBalance: ${show(tally.rawBalance)}`);
+writeFileSync(
+  join(process.cwd(), "data", "binance-balances.json"),
+  `${JSON.stringify(
+    {
+      capturedAt: new Date().toISOString().slice(0, 10),
+      source: "npm run binance:balances",
+      account: addr,
+      accountLabel: addr.toLowerCase() === "0x8f73b65b4caaf64fba2af91cc5d4a2a1318e5d8c" ? "Lista Moolah" : "",
+      endpoint: ENDPOINTS.allTokenBalances,
+      chain: CHAIN_ID,
+      tokensReturned: assets.length,
+      pages: pagesFetched,
+      elapsedMs: totalMs,
+      rows: captured,
+    },
+    null,
+    2
+  )}\n`
+);
+console.log("\nwrote data/binance-balances.json");
+
 console.log("\nRecord the table above verbatim in docs/devex-log.md. Either outcome is a finding:");
 console.log("  RAW          the API's own balance shows the un-multiplied figure for the issuer's own product");
 console.log("  UI-adjusted  the correct share count is available at source, so the gap is one of propagation");

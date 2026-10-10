@@ -84,6 +84,23 @@ a:hover {
   letter-spacing: 0.01em;
 }
 
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  border-bottom: 0;
+  color: inherit;
+}
+
+.brand:hover {
+  border-bottom: 0;
+}
+
+.brand .mark {
+  flex: none;
+  display: block;
+}
+
 .masthead .subtitle {
   margin: 0.15rem 0 0;
   color: var(--muted);
@@ -234,7 +251,8 @@ a:hover {
 
 /* dates and tickers are single tokens; letting them wrap splits "2026-07-" from "28" */
 .ledger td.num,
-.ledger td.sym {
+.ledger td.sym,
+.ledger td.r {
   white-space: nowrap;
 }
 
@@ -381,6 +399,122 @@ sup.fn {
     max-width: none;
   }
   .lookup {
+    display: none;
+  }
+}
+
+/* thesis ----------------------------------------------------------------- */
+
+.thesis {
+  max-width: 46rem;
+  margin: 2.25rem 0 0;
+  font-size: clamp(1.15rem, 2.6vw, 1.4rem);
+  line-height: 1.5;
+}
+
+/* notice chart ----------------------------------------------------------- */
+
+.chart {
+  --label: 7.4rem;
+  margin-top: 1.25rem;
+}
+
+.chead,
+.crow {
+  display: grid;
+  grid-template-columns: var(--label) 1fr;
+  align-items: center;
+}
+
+.crow {
+  height: 1.4rem;
+}
+
+.ctrack {
+  position: relative;
+  display: block;
+  height: 100%;
+}
+
+.crow .ctrack::after,
+.chart .chead:first-child .ctrack::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--ref);
+  border-left: 1px solid var(--discrepancy);
+}
+
+.clabel {
+  display: flex;
+  gap: 0.6rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.cdate {
+  color: var(--muted);
+}
+
+.cbar {
+  position: absolute;
+  left: 0;
+  top: 28%;
+  height: 44%;
+  background: var(--ink);
+  opacity: 0.6;
+}
+
+.cval {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.chart .chead:first-child {
+  height: 1.6rem;
+}
+
+.cref {
+  position: absolute;
+  right: calc(100% - var(--ref));
+  bottom: 0.2rem;
+  padding-right: 0.5rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  color: var(--discrepancy);
+  white-space: nowrap;
+}
+
+.caxis {
+  height: 1.4rem;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.ctick {
+  position: absolute;
+  top: 0.3rem;
+  transform: translateX(-50%);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  color: var(--muted);
+}
+
+.ctick:first-child {
+  transform: none;
+}
+
+@media (max-width: 30rem) {
+  .chart {
+    --label: 6.2rem;
+  }
+  .cdate {
     display: none;
   }
 }

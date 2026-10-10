@@ -57,6 +57,18 @@ export type Overview = {
   oracleStalenessSeconds: number;
   /** dollar value of the undisclosed shares the issuer publishes a price for, if available */
   priced: PricedHidden | null;
+  /** one security shown as a worked example, taken from the same snapshot as everything else */
+  example: {
+    symbol: string;
+    underlying: string;
+    decimals: number;
+    rawSupply: bigint;
+    trueShares: bigint;
+    hidden: bigint;
+    multiplier: bigint;
+    /** effective date of the most recent action on it, if the history was recovered */
+    since: bigint | null;
+  } | null;
 };
 
 export const VENUS_STALENESS_SECONDS = 3900;
@@ -89,6 +101,21 @@ export function buildOverview(): Overview | null {
         }
       : null,
     oracleStalenessSeconds: VENUS_STALENESS_SECONDS,
+    example: (() => {
+      const row = sweep.divergent.find((r) => r.symbol === "NVDAB") ?? sweep.divergent[0];
+      if (!row) return null;
+      const last = (events?.events ?? []).filter((e) => e.address === row.address).pop();
+      return {
+        symbol: row.symbol,
+        underlying: row.underlying,
+        decimals: row.decimals,
+        rawSupply: row.totalSupply,
+        trueShares: row.totalSupplyUI,
+        hidden: row.hiddenSupply,
+        multiplier: row.uiMultiplier,
+        since: last ? last.effectiveAt : null,
+      };
+    })(),
     priced: (() => {
       const rwa = loadRwa();
       return rwa ? pricedHidden(sweep, rwa) : null;

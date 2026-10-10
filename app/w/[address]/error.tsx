@@ -1,11 +1,15 @@
 "use client";
 
+import { Brand } from "@/app/brand";
+
 export default function StatementError({ reset }: { error: Error; reset: () => void }) {
   return (
     <main className="sheet">
       <header className="masthead">
         <div>
-          <h1 className="wordmark">Recordholder</h1>
+          <h1 className="wordmark">
+            <Brand />
+          </h1>
           <p className="subtitle">Statement of corporate actions</p>
         </div>
       </header>

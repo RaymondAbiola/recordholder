@@ -24,7 +24,8 @@ the figures match.
   historical chain state, because no public endpoint tested serves the event logs.
 - Shows any address what it holds, what each action paid it, and the difference between
   `balanceOf` and the shares it actually owns.
-- Cross-checks the figures against Binance's own Web3 RWA API.
+- Cross-checks the figures against Binance's own Web3 RWA API, and shows what that API reports
+  next to the chain at `/binance`.
 
 ## API
 
