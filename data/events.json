@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-05T10:10:57.633Z",
-  "headBlock": "125849669",
+  "generatedAt": "2026-10-10T13:06:59.273Z",
+  "headBlock": "126832787",
   "scanStart": "112500000",
   "samples": 18,
   "histories": [
@@ -73,7 +73,7 @@
     {
       "symbol": "CRMB",
       "address": "0x8C433eCa1be0e2a357015602F63751C768F6f643",
-      "firstSeenBlock": "119567471",
+      "firstSeenBlock": "120087946",
       "multiplierAtFirstSeen": "1000000000000000000",
       "events": [
         {
@@ -203,6 +203,28 @@
       "truncated": false
     },
     {
+      "symbol": "MRVLB",
+      "address": "0x16cd4fe7e8880ECc3ba222795229E20489fc2C76",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "MRVLB",
+          "underlying": "Marvell Technology",
+          "address": "0x16cd4fe7e8880ECc3ba222795229E20489fc2C76",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1000153284671603306",
+          "stepBps": 1.532,
+          "block": "126536085",
+          "effectiveAt": "1791504000",
+          "scheduledAtBlock": "126534244",
+          "scheduledAt": "1791503171",
+          "noticeSeconds": 829
+        }
+      ],
+      "truncated": false
+    },
+    {
       "symbol": "MSFTB",
       "address": "0x80106cb3EAD06659A5ad19DF39D9b4733863B9b0",
       "firstSeenBlock": "112500000",
@@ -286,6 +308,28 @@
           "scheduledAtBlock": "120969809",
           "scheduledAt": "1788998110",
           "noticeSeconds": 290
+        }
+      ],
+      "truncated": false
+    },
+    {
+      "symbol": "ORCLB",
+      "address": "0x4684D9887fC1c71cBa7baB8E88835CEC217eB598",
+      "firstSeenBlock": "112500000",
+      "multiplierAtFirstSeen": "1000000000000000000",
+      "events": [
+        {
+          "symbol": "ORCLB",
+          "underlying": "Oracle",
+          "address": "0x4684D9887fC1c71cBa7baB8E88835CEC217eB598",
+          "fromMultiplier": "1000000000000000000",
+          "toMultiplier": "1002571827467211643",
+          "stepBps": 25.718,
+          "block": "126536085",
+          "effectiveAt": "1791504000",
+          "scheduledAtBlock": "126534376",
+          "scheduledAt": "1791503231",
+          "noticeSeconds": 769
         }
       ],
       "truncated": false
@@ -783,6 +827,32 @@
       "scheduledAtBlock": "123464143",
       "scheduledAt": "1790121070",
       "noticeSeconds": 530
+    },
+    {
+      "symbol": "MRVLB",
+      "underlying": "Marvell Technology",
+      "address": "0x16cd4fe7e8880ECc3ba222795229E20489fc2C76",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1000153284671603306",
+      "stepBps": 1.532,
+      "block": "126536085",
+      "effectiveAt": "1791504000",
+      "scheduledAtBlock": "126534244",
+      "scheduledAt": "1791503171",
+      "noticeSeconds": 829
+    },
+    {
+      "symbol": "ORCLB",
+      "underlying": "Oracle",
+      "address": "0x4684D9887fC1c71cBa7baB8E88835CEC217eB598",
+      "fromMultiplier": "1000000000000000000",
+      "toMultiplier": "1002571827467211643",
+      "stepBps": 25.718,
+      "block": "126536085",
+      "effectiveAt": "1791504000",
+      "scheduledAtBlock": "126534376",
+      "scheduledAt": "1791503231",
+      "noticeSeconds": 769
     }
   ]
 }

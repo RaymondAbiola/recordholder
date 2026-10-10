@@ -224,6 +224,11 @@ export default function Home() {
           </p>
         )}
         <p>
+          Machine readable: <a href="/api/events">the full record as JSON</a>, and{" "}
+          <span className="num">/api/wallet/&lt;address&gt;</span> for any account, as JSON or with{" "}
+          <span className="num">?format=csv</span>.
+        </p>
+        <p>
           Derived from BNB Chain state at block {o.asOf.block.toString()}. Under BEP-677 and
           ERC-8056, <span className="num">balanceOf</span> and{" "}
           <span className="num">totalSupply</span> return raw amounts by specification; shares owned

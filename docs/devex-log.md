@@ -266,7 +266,7 @@ Other observations from the reconstruction:
 - Most events take effect at exactly 00:00:00 UTC. Three leveraged ETFs (MUUB, SOXLB,
   SOXSB) moved together at 01:30:00 on 2026-09-22, so events arrive in issuer batches,
   not independently.
-- Cadence is accelerating as the catalogue grows: one event in July, four in August,
+- Cadence is accelerating as the catalogue grows: one event in July, five in August,
   sixteen in September.
 - MUB was already off 1.0 at the earliest block sampled, so its earlier history is
   genuinely unrecoverable within the scan window and is recorded as unknown rather than
@@ -336,6 +336,25 @@ ambiguity was real and not a misreading.
 **Would have prevented it:** fold `hasPendingMultiplier()` into the required extension
 rather than leaving it as a BSC addition. It is the only getter that answers the question
 an integrator actually has, and the spec's own motivation section in 4.5 says as much.
+
+---
+
+## 2026-10-10 — refresh: the pattern held on two new actions, and the figures moved
+
+Re-ran the sweep and the reconstruction five days after the first. Two further actions had
+landed on 2026-10-09 (MRVLB, +1.53 bps, 829s notice; ORCLB, +25.72 bps, 769s notice), so the
+record is now **24 actions across 25 securities**, with 2,896.154 hidden shares, up from
+2,490.512 on the 5th. Hidden shares grew by about 16% in five days.
+
+The notice figures to quote are the current ones, not the earlier entry's: **min 109s,
+median 708s, max 1549s, n=24**. The median moved from 649s because two new points joined.
+All 24 of 24 are still below the 3900s of staleness Venus tolerates. This is the first
+independent check that the pattern is not an artefact of the first 22 observations, since
+the two new events were not in the sample the claim was originally drawn from.
+
+Cadence by month is now 1 (July), 5 (August), 16 (September), 2 (October so far, in nine
+days). September was the peak; October is running at roughly the August rate, so this is
+a steady stream rather than a single cluster.
 
 ---
 

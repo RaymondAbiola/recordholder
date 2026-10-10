@@ -85,6 +85,12 @@ export default async function WalletRecord({
               multiplier. The raw balance did not change in any of them, which is why no wallet,
               explorer or portfolio tracker reported them.
             </p>
+            <p className="lede">
+              <a href={`/api/wallet/${account}?format=csv`}>Download as CSV</a>
+              {" "}&nbsp;·&nbsp;{" "}
+              <a href={`/api/wallet/${account}`}>JSON</a>. Quantities and dates only. Pricing each
+              credit at its effective date is left to whoever prepares the return.
+            </p>
             <div className="scroller">
               <table className="ledger">
                 <thead>

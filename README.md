@@ -8,8 +8,11 @@ are `raw * uiMultiplier / 1e18` and nothing that reads `balanceOf` ever shows th
 Recordholder reconstructs each wallet's true share count and the corporate actions it
 held through, and exports the result.
 
-As of 2026-10-05, 23 of the 83 bStocks have multipliers above 1.0, hiding roughly
-2,474 shares across all holders.
+As of 2026-10-10, 25 of the 83 bStocks have multipliers above 1.0, and 24 corporate
+actions have been recorded since July, hiding roughly 2,896 shares across all holders.
+That is a count of shares, not a value: one hidden NVIDIA share and one hidden Nokia
+share are both one share. The deployed site reads the same snapshots as this repo, so
+the figures match.
 
 ## Setup
 
