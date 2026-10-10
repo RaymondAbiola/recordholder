@@ -182,7 +182,7 @@ balance:    RAW 16
 rawBalance: RAW 16
 ```
 
-**Result: 16 of 16 raw, in both fields.** The field named `balance`, which is the one a
+**Result: 16 of 16 raw, in both fields on the first run, and 19 of 19 once paging was fixed (see below).** The field named `balance`, which is the one a
 consumer would reach for, is identical to `rawBalance` and does not include the multiplier. So
 the issuer's own developer API shows the un-multiplied figure for the issuer's own product. The
 same API's token list publishes `tokenToShareRatio`, the multiplier itself, so the correct number
@@ -193,19 +193,33 @@ is available from Binance and nothing joins the two. Neither endpoint's document
 (they are among the 37 absent from its list of 46), yet the balances endpoint returns them. So the two
 endpoints disagree about which tokens exist.
 
-**Do not quote the line "3 held token(s) were not returned by the API at all".** The same run
-printed `500 tokens returned`, which is exactly five full pages of 100 and was the script's own
-page cap. Moolah holds more than 500 tokens, so those three were very likely on pages never
-fetched. The cap has since been raised and the loop now stops once every needed token is found.
-Rerun before saying anything about omitted tokens.
+**Rerun with paging fixed: 19 of 19 raw, in both fields.** The first run's "3 held token(s) were
+not returned" line was an artefact of the script's own five-page cap. With the cap raised the
+endpoint returned 720 tokens across 8 pages in 7347ms, and the three previously missing holdings
+were all present:
+
+```
+SOXLB          87.232934       87.271485       87.232934       87.232934  RAW / RAW
+IBMB            7.326142        7.362815        7.326142        7.326142  RAW / RAW
+MUB           131.257780      131.271892      131.257780      131.257780  RAW / RAW
+balance:    RAW 19
+rawBalance: RAW 19
+```
+
+So the balances endpoint returned every token held, 19 of 19. The earlier "omitted tokens" reading
+was wrong and is withdrawn.
 
 **Latency:** 5775ms for five pages of 100, about 1.15s per page.
 
-**Still to check on the rerun:** each returned row also carries a `tokenPrice`. If it is the
-per-token price (reference x multiplier), then `balance x tokenPrice` is the correct dollar value
-even though `balance` understates the share count, which would mean value is right and only the
-share count is wrong. If it is the per-share price, value is understated by the multiplier.
-The script now prints which.
+**What each row's `tokenPrice` is, from the rerun:** compared against the per-share reference price
+(16 rows, the other 3 having no reference in the token list), 5 matched the per-token derivation
+(reference x multiplier) within 1e-5, **none matched the per-share price**, and 11 matched neither
+at that tolerance. So the price carried in these rows is not simply the per-share price, and for
+5 tokens it is exactly the per-token one. The 11 are not characterised: they may be a live market
+quote or simply off by more than 1e-5 from a derived value, and the first version of the script
+printed a verdict rather than the figures. It now prints price, reference, ratio and the distance
+from the per-token value in ppm per row. Treat the claim "value is right while the share count is
+wrong" as supported by 5 rows and contradicted by none, not as established.
 
 ---
 

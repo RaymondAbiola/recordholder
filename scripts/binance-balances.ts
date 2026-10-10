@@ -149,6 +149,7 @@ try {
   // no cache: the price column is simply omitted
 }
 const priceTally = new Map<string, number>();
+const priceRows: string[] = [];
 
 const tally = { balance: new Map<string, number>(), rawBalance: new Map<string, number>() };
 const bump = (m: Map<string, number>, k: string) => m.set(k, (m.get(k) ?? 0) + 1);
@@ -177,6 +178,9 @@ for (const p of positions) {
     const ratio = apiPrice / ref;
     const verdict = Math.abs(ratio - mult) < 1e-5 ? "per token" : Math.abs(ratio - 1) < 1e-6 ? "per share" : "neither";
     priceTally.set(verdict, (priceTally.get(verdict) ?? 0) + 1);
+    priceRows.push(
+      `  ${p.token.symbol.padEnd(8)} api price ${apiPrice.toFixed(4).padStart(10)}  reference ${ref.toFixed(4).padStart(10)}  price/ref ${ratio.toFixed(6)}  multiplier ${mult.toFixed(6)}  off per-token by ${(((ratio - mult) / mult) * 1e6).toFixed(0)} ppm  ${verdict}`
+    );
   }
   console.log(
     p.token.symbol.padEnd(8) + f(raw).padStart(16) + f(shares).padStart(16) + f(b).padStart(16) + f(rb).padStart(16) + `  ${cb} / ${crb}`
@@ -188,6 +192,7 @@ if (missing) console.log(`${missing} held token(s) were not returned by the API 
 if (priceTally.size) {
   console.log(`\nprice carried in the same rows, against the issuer's per-share reference price:`);
   console.log(`  ${[...priceTally.entries()].map(([k, v]) => `${k} ${v}`).join(", ")}`);
+  priceRows.forEach((r) => console.log(r));
   console.log("  per token = reference x multiplier, so balance x price is the correct value");
   console.log("  per share = reference, so balance x price understates value by the multiplier");
 }
