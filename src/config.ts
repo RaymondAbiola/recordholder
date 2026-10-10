@@ -23,6 +23,17 @@ export const archiveClient = createPublicClient({
 
 export const rpcUrls = { live: RPC, archive: ARCHIVE_RPC };
 
+// Provider URLs usually carry the API key in the path or query, so anything that prints an
+// endpoint must go through this and show only the host.
+export function redactUrl(url: string): string {
+  try {
+    const u = new URL(url);
+    return `${u.protocol}//${u.host}${u.pathname.length > 1 || u.search ? "/<hidden>" : ""}`;
+  } catch {
+    return "<unparseable url, hidden>";
+  }
+}
+
 export const MULTICALL3 = "0xcA11bde05977b3631167028862bE2a173976CA11" as const;
 
 // NVDAB's first multiplier move: scheduled at 23:55:10 UTC, effective at exactly

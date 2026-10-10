@@ -1,4 +1,4 @@
-import { client, archiveClient, rpcUrls, KNOWN_EVENT } from "../src/config";
+import { client, archiveClient, rpcUrls, redactUrl, KNOWN_EVENT } from "../src/config";
 import { bep677Abi, INTERFACE_IDS } from "../src/abi";
 import { WAD } from "../src/bep677";
 
@@ -18,8 +18,8 @@ const check = (ok: boolean, label: string, detail = "") => {
 };
 
 console.log("rpc");
-console.log(`  live    ${rpcUrls.live}`);
-console.log(`  archive ${rpcUrls.archive}`);
+console.log(`  live    ${redactUrl(rpcUrls.live)}`);
+console.log(`  archive ${redactUrl(rpcUrls.archive)}`);
 
 console.log("\nlive reads");
 const head = await client.getBlockNumber();
