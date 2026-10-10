@@ -154,6 +154,61 @@ GSB, PYPLB, CRMB, AMATB or AAPLB, so the true total is higher.
 
 ---
 
+## 2026-10-10 — Binance's balances endpoint reports the raw figure, in both fields
+
+Method: `npm run binance:balances -- 0x8F73b65B4caAf64FBA2aF91cC5D4a2A1318E5D8C` (Lista Moolah,
+a lending contract), comparing `/dex/balance/all-token-balances-by-address` against the chain
+for every divergent bStock the address holds with a balance of at least 1 token.
+
+```
+SYM            chain raw    chain shares     api balance  api rawBalance  balance / rawBalance
+SPYB         2313.515380     2317.517281     2313.515380     2313.515380  RAW / RAW
+NVDAB        3059.004268     3061.384858     3059.004268     3059.004268  RAW / RAW
+NOKB          645.189796      646.705616      645.189796      645.189796  RAW / RAW
+QQQB         1678.748589     1679.965410     1678.748589     1678.748589  RAW / RAW
+TSMB          337.772215      338.485071      337.772215      337.772215  RAW / RAW
+AVGOB         322.190640      322.599567      322.190640      322.190640  RAW / RAW
+GOOGLB        822.188346      822.581400      822.188346      822.188346  RAW / RAW
+QCOMB          96.339182       96.705688       96.339182       96.339182  RAW / RAW
+MSFTB         278.908780      279.275257      278.908780      278.908780  RAW / RAW
+TQQQB         258.007788      258.355485      258.007788      258.007788  RAW / RAW
+GLWB          140.022692      140.203359      140.022692      140.022692  RAW / RAW
+AMATB         215.564765      215.726094      215.564765      215.564765  RAW / RAW
+METAB         275.772389      275.923593      275.772389      275.772389  RAW / RAW
+MRVLB         395.324300      395.384897      395.324300      395.324300  RAW / RAW
+PYPLB           1.042387        1.044234        1.042387        1.042387  RAW / RAW
+AAPLB           1.166720        1.167425        1.166720        1.166720  RAW / RAW
+balance:    RAW 16
+rawBalance: RAW 16
+```
+
+**Result: 16 of 16 raw, in both fields.** The field named `balance`, which is the one a
+consumer would reach for, is identical to `rawBalance` and does not include the multiplier. So
+the issuer's own developer API shows the un-multiplied figure for the issuer's own product. The
+same API's token list publishes `tokenToShareRatio`, the multiplier itself, so the correct number
+is available from Binance and nothing joins the two. Neither endpoint's documentation says that
+`balance` is not a share count.
+
+**Three of the 16 (AAPLB, AMATB, PYPLB) are tokens that `/rwa/tokens` does not list at all**
+(they are among the 37 absent from its list of 46), yet the balances endpoint returns them. So the two
+endpoints disagree about which tokens exist.
+
+**Do not quote the line "3 held token(s) were not returned by the API at all".** The same run
+printed `500 tokens returned`, which is exactly five full pages of 100 and was the script's own
+page cap. Moolah holds more than 500 tokens, so those three were very likely on pages never
+fetched. The cap has since been raised and the loop now stops once every needed token is found.
+Rerun before saying anything about omitted tokens.
+
+**Latency:** 5775ms for five pages of 100, about 1.15s per page.
+
+**Still to check on the rerun:** each returned row also carries a `tokenPrice`. If it is the
+per-token price (reference x multiplier), then `balance x tokenPrice` is the correct dollar value
+even though `balance` understates the share count, which would mean value is right and only the
+share count is wrong. If it is the per-share price, value is understated by the multiplier.
+The script now prints which.
+
+---
+
 ## OPEN — Binance Web3 API, first contact
 
 The client and the balance comparison are written and verified as far as they can be

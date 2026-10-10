@@ -7,6 +7,8 @@
 //   npm run binance:balances -- <address>
 //   npm run binance:balances -- <address> --dry-run     builds the request, sends nothing
 
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { formatUnits, isAddress, getAddress, type Address } from "viem";
 import { client } from "../src/config";
 import { loadSweep } from "../src/snapshot";
@@ -15,7 +17,7 @@ import { buildSignedRequest, call, describeCredentials, verifySigning, baseUrl, 
 
 const CHAIN_ID = process.env.BINANCE_BSC_CHAIN_ID || "56";
 const PAGE_SIZE = 100;
-const MAX_PAGES = 5;
+const MAX_PAGES = 60;
 
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
@@ -79,7 +81,11 @@ type Asset = {
 
 console.log("\nbinance side");
 const assets: Asset[] = [];
+const needed = new Set(positions.map((p) => p.token.address.toLowerCase()));
+const seen = new Set<string>();
 let totalMs = 0;
+let pagesFetched = 0;
+let capped = false;
 for (let page = 1; page <= MAX_PAGES; page++) {
   const res = await call<{ code?: number | string; msg?: string; data?: { tokenAssets?: Asset[] }[] }>(
     ENDPOINTS.allTokenBalances,
@@ -98,9 +104,14 @@ for (let page = 1; page <= MAX_PAGES; page++) {
     process.exit(0);
   }
   assets.push(...got);
+  pagesFetched = page;
+  for (const a of got) if (a.tokenContractAddress) seen.add(a.tokenContractAddress.toLowerCase());
+  if ([...needed].every((a) => seen.has(a))) break;
   if (got.length < PAGE_SIZE) break;
+  if (page === MAX_PAGES) capped = true;
 }
-console.log(`  ${assets.length} tokens returned in ${totalMs}ms across the pages fetched`);
+console.log(`  ${assets.length} tokens returned in ${totalMs}ms across ${pagesFetched} page(s)`);
+if (capped) console.log(`  WARNING: stopped at the ${MAX_PAGES}-page cap, so a "not returned" count below may be an artefact`);
 
 const byAddress = new Map(
   assets.filter((a) => a.tokenContractAddress).map((a) => [a.tokenContractAddress!.toLowerCase(), a])
@@ -124,6 +135,21 @@ const classify = (reported: number | null, raw: number, shares: number) => {
   return isRaw ? "RAW" : isUi ? "UI-adjusted" : "neither";
 };
 
+// The same rows carry a tokenPrice. Whether it is per token (reference x multiplier) or per
+// share (reference) decides whether value = balance x tokenPrice is right even though the
+// share count is not.
+type Listed = { address: string; referencePrice: string | null };
+const refPrice = new Map<string, number>();
+try {
+  const cached = JSON.parse(readFileSync(join(process.cwd(), "data", "rwa-tokens.json"), "utf8")) as {
+    tokens: Listed[];
+  };
+  for (const t of cached.tokens) if (t.referencePrice) refPrice.set(t.address.toLowerCase(), Number(t.referencePrice));
+} catch {
+  // no cache: the price column is simply omitted
+}
+const priceTally = new Map<string, number>();
+
 const tally = { balance: new Map<string, number>(), rawBalance: new Map<string, number>() };
 const bump = (m: Map<string, number>, k: string) => m.set(k, (m.get(k) ?? 0) + 1);
 
@@ -144,12 +170,27 @@ for (const p of positions) {
   bump(tally.balance, cb);
   bump(tally.rawBalance, crb);
   const f = (n: number | null) => (n === null ? "-" : n.toFixed(6));
+  const apiPrice = a.tokenPrice ? Number(a.tokenPrice) : NaN;
+  const ref = refPrice.get(p.token.address.toLowerCase());
+  const mult = shares / raw;
+  if (ref && Number.isFinite(apiPrice)) {
+    const ratio = apiPrice / ref;
+    const verdict = Math.abs(ratio - mult) < 1e-5 ? "per token" : Math.abs(ratio - 1) < 1e-6 ? "per share" : "neither";
+    priceTally.set(verdict, (priceTally.get(verdict) ?? 0) + 1);
+  }
   console.log(
     p.token.symbol.padEnd(8) + f(raw).padStart(16) + f(shares).padStart(16) + f(b).padStart(16) + f(rb).padStart(16) + `  ${cb} / ${crb}`
   );
 }
 console.log("-".repeat(98));
 if (missing) console.log(`${missing} held token(s) were not returned by the API at all`);
+
+if (priceTally.size) {
+  console.log(`\nprice carried in the same rows, against the issuer's per-share reference price:`);
+  console.log(`  ${[...priceTally.entries()].map(([k, v]) => `${k} ${v}`).join(", ")}`);
+  console.log("  per token = reference x multiplier, so balance x price is the correct value");
+  console.log("  per share = reference, so balance x price understates value by the multiplier");
+}
 
 const show = (m: Map<string, number>) => [...m.entries()].map(([k, v]) => `${k} ${v}`).join(", ") || "none";
 console.log(`\nbalance:    ${show(tally.balance)}`);
