@@ -278,7 +278,7 @@ export default function Home() {
           <p>
             <sup className="fn">3</sup> Per-share reference price published by Binance&rsquo;s RWA
             API, multiplied by the undisclosed shares of each security it prices (fetched{" "}
-            {o.priced.fetchedAt.slice(0, 10)}). It is a last close, not a live quote.{" "}
+            {o.priced.fetchedAt.slice(0, 10)}). It is the value of the shares, not a loss: Binance&rsquo;s own dollar balances already include it, because its per-token price carries the multiplier. It is a last close, not a live quote.{" "}
             {o.priced.unpriced.length > 0 && (
               <>
                 It does not price {o.priced.unpriced.length} of the {o.priced.divergentCount},

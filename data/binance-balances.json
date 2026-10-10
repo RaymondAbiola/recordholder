@@ -1,13 +1,13 @@
 {
   "capturedAt": "2026-10-10",
-  "source": "npm run binance:balances, transcribed from the terminal output of that run",
+  "source": "npm run binance:balances",
   "account": "0x8F73b65B4caAf64FBA2aF91cC5D4a2A1318E5D8C",
   "accountLabel": "Lista Moolah",
   "endpoint": "/api/v1/dex/balance/all-token-balances-by-address",
   "chain": "56",
   "tokensReturned": 720,
   "pages": 8,
-  "elapsedMs": 7347,
+  "elapsedMs": 8251,
   "rows": [
     {
       "symbol": "SPYB",
@@ -15,19 +15,19 @@
       "address": "0x7138b48df7D98D7e3cc221BfE7192D0a178182D8",
       "chainRaw": "2313.515380",
       "chainShares": "2317.517281",
-      "apiBalance": "2313.515380",
-      "apiRawBalance": "2313.515380",
-      "apiTokenPrice": null
+      "apiBalance": "2313.5153800731573",
+      "apiRawBalance": "2313515380073157256690",
+      "apiTokenPrice": "780.79828640311122080295000000"
     },
     {
       "symbol": "NVDAB",
       "underlying": "NVIDIA",
       "address": "0x02Fca66C1D1aFB4E2A7884261eB00F63598a7436",
-      "chainRaw": "3059.004268",
-      "chainShares": "3061.384858",
-      "apiBalance": "3059.004268",
-      "apiRawBalance": "3059.004268",
-      "apiTokenPrice": null
+      "chainRaw": "3059.008182",
+      "chainShares": "3061.388775",
+      "apiBalance": "3059.008182394201",
+      "apiRawBalance": "3059008182394200865592",
+      "apiTokenPrice": "230.67938057502221288250000000"
     },
     {
       "symbol": "NOKB",
@@ -35,9 +35,9 @@
       "address": "0x7c4d7a180D737Dd5A70d8065a90E6746a69C37EA",
       "chainRaw": "645.189796",
       "chainShares": "646.705616",
-      "apiBalance": "645.189796",
-      "apiRawBalance": "645.189796",
-      "apiTokenPrice": null
+      "apiBalance": "645.1897963047132",
+      "apiRawBalance": "645189796304713192864",
+      "apiTokenPrice": "10.37431645891661321235000000"
     },
     {
       "symbol": "QQQB",
@@ -45,9 +45,9 @@
       "address": "0x205812CdBed920aFf76C6580abD681a46D11efc7",
       "chainRaw": "1678.748589",
       "chainShares": "1679.965410",
-      "apiBalance": "1678.748589",
-      "apiRawBalance": "1678.748589",
-      "apiTokenPrice": null
+      "apiBalance": "1678.7485885703647",
+      "apiRawBalance": "1678748588570364853790",
+      "apiTokenPrice": "751.98467276084667991752000000"
     },
     {
       "symbol": "TSMB",
@@ -55,9 +55,9 @@
       "address": "0xAB78b89B5bb00236Be0B4B20704cBfa04EfC711c",
       "chainRaw": "337.772215",
       "chainShares": "338.485071",
-      "apiBalance": "337.772215",
-      "apiRawBalance": "337.772215",
-      "apiTokenPrice": null
+      "apiBalance": "337.7722145891845",
+      "apiRawBalance": "337772214589184502549",
+      "apiTokenPrice": "455.12850949894112494911000000"
     },
     {
       "symbol": "AVGOB",
@@ -65,9 +65,9 @@
       "address": "0x76682c454467b3A1150Ad8b6a92FC5eE2C21d7eD",
       "chainRaw": "322.190640",
       "chainShares": "322.599567",
-      "apiBalance": "322.190640",
-      "apiRawBalance": "322.190640",
-      "apiTokenPrice": null
+      "apiBalance": "322.1906402541552",
+      "apiRawBalance": "322190640254155202350",
+      "apiTokenPrice": "363.76110348847007572260000000"
     },
     {
       "symbol": "GOOGLB",
@@ -75,9 +75,9 @@
       "address": "0x3F53De71c126BdaBAe20f9cD64848d317f6C3238",
       "chainRaw": "822.188346",
       "chainShares": "822.581400",
-      "apiBalance": "822.188346",
-      "apiRawBalance": "822.188346",
-      "apiTokenPrice": null
+      "apiBalance": "822.1883458800771",
+      "apiRawBalance": "822188345880077149085",
+      "apiTokenPrice": "352.54845842270552472618000000"
     },
     {
       "symbol": "QCOMB",
@@ -85,9 +85,9 @@
       "address": "0x5F7A56e877B9130608Bf8BE962621011182fEfE1",
       "chainRaw": "96.339182",
       "chainShares": "96.705688",
-      "apiBalance": "96.339182",
-      "apiRawBalance": "96.339182",
-      "apiTokenPrice": null
+      "apiBalance": "96.33918220828451",
+      "apiRawBalance": "96339182208284517061",
+      "apiTokenPrice": "176.89039783845046734942000000"
     },
     {
       "symbol": "MSFTB",
@@ -95,9 +95,9 @@
       "address": "0x80106cb3EAD06659A5ad19DF39D9b4733863B9b0",
       "chainRaw": "278.908780",
       "chainShares": "279.275257",
-      "apiBalance": "278.908780",
-      "apiRawBalance": "278.908780",
-      "apiTokenPrice": null
+      "apiBalance": "278.9087803531203",
+      "apiRawBalance": "278908780353120281769",
+      "apiTokenPrice": "535.77306316338959775415000000"
     },
     {
       "symbol": "TQQQB",
@@ -105,9 +105,9 @@
       "address": "0x462B5F13B7C7748279358962925c5De83BB9E598",
       "chainRaw": "258.007788",
       "chainShares": "258.355485",
-      "apiBalance": "258.007788",
-      "apiRawBalance": "258.007788",
-      "apiTokenPrice": null
+      "apiBalance": "258.00778795355285",
+      "apiRawBalance": "258007787953552877749",
+      "apiTokenPrice": "81.15922476785651432165000000"
     },
     {
       "symbol": "GLWB",
@@ -115,9 +115,9 @@
       "address": "0x740e075cBbEa22a082B9d6679e65e82767875b6A",
       "chainRaw": "140.022692",
       "chainShares": "140.203359",
-      "apiBalance": "140.022692",
-      "apiRawBalance": "140.022692",
-      "apiTokenPrice": null
+      "apiBalance": "140.02269152387902",
+      "apiRawBalance": "140022691523879022353",
+      "apiTokenPrice": "156.0210497642838611598000000"
     },
     {
       "symbol": "AMATB",
@@ -125,9 +125,9 @@
       "address": "0xa304BD78e739C0F777202B3eB73Ac3736d1df801",
       "chainRaw": "215.564765",
       "chainShares": "215.726094",
-      "apiBalance": "215.564765",
-      "apiRawBalance": "215.564765",
-      "apiTokenPrice": null
+      "apiBalance": "215.56476536171263",
+      "apiRawBalance": "215564765361712631782",
+      "apiTokenPrice": "507.33940908732557358216000000"
     },
     {
       "symbol": "METAB",
@@ -135,9 +135,9 @@
       "address": "0x7425889FE94F9d693E8daefE88BCCed6AcFEf4c0",
       "chainRaw": "275.772389",
       "chainShares": "275.923593",
-      "apiBalance": "275.772389",
-      "apiRawBalance": "275.772389",
-      "apiTokenPrice": null
+      "apiBalance": "275.7723891638215",
+      "apiRawBalance": "275772389163821491814",
+      "apiTokenPrice": "719.4742646685584786460000000"
     },
     {
       "symbol": "MRVLB",
@@ -145,9 +145,9 @@
       "address": "0x16cd4fe7e8880ECc3ba222795229E20489fc2C76",
       "chainRaw": "395.324300",
       "chainShares": "395.384897",
-      "apiBalance": "395.324300",
-      "apiRawBalance": "395.324300",
-      "apiTokenPrice": null
+      "apiBalance": "395.3242995044772",
+      "apiRawBalance": "395324299504477191978",
+      "apiTokenPrice": "276.69240620439905460490000000"
     },
     {
       "symbol": "SOXLB",
@@ -155,9 +155,9 @@
       "address": "0xd97d097a89113fa59b76c572E5b2Eb647E8eefaf",
       "chainRaw": "87.232934",
       "chainShares": "87.271485",
-      "apiBalance": "87.232934",
-      "apiRawBalance": "87.232934",
-      "apiTokenPrice": null
+      "apiBalance": "87.23293377100862",
+      "apiRawBalance": "87232933771008614255",
+      "apiTokenPrice": "140.84221621167837720414000000"
     },
     {
       "symbol": "IBMB",
@@ -165,9 +165,9 @@
       "address": "0xfA273B076Feb8c0FB34e554ae341082323D016A3",
       "chainRaw": "7.326142",
       "chainShares": "7.362815",
-      "apiBalance": "7.326142",
-      "apiRawBalance": "7.326142",
-      "apiTokenPrice": null
+      "apiBalance": "7.326142168844153",
+      "apiRawBalance": "7326142168844152526",
+      "apiTokenPrice": "227.75441476384379521872000000"
     },
     {
       "symbol": "MUB",
@@ -175,9 +175,9 @@
       "address": "0xcdf2f3e0fa43C47A6662a91C9E4a7C5f69762699",
       "chainRaw": "131.257780",
       "chainShares": "131.271892",
-      "apiBalance": "131.257780",
-      "apiRawBalance": "131.257780",
-      "apiTokenPrice": null
+      "apiBalance": "131.25777975771157",
+      "apiRawBalance": "131257779757711579984",
+      "apiTokenPrice": "1034.67122820318352463968000000"
     },
     {
       "symbol": "PYPLB",
@@ -185,9 +185,9 @@
       "address": "0x2806a561fC1F9259B2d54A281796Bde0D92762aE",
       "chainRaw": "1.042387",
       "chainShares": "1.044234",
-      "apiBalance": "1.042387",
-      "apiRawBalance": "1.042387",
-      "apiTokenPrice": null
+      "apiBalance": "1.042387475145164",
+      "apiRawBalance": "1042387475145163987",
+      "apiTokenPrice": "55.49815654623821717860000000"
     },
     {
       "symbol": "AAPLB",
@@ -195,9 +195,9 @@
       "address": "0x431a3BEE82E2ca41e49895CbECE5bB0F76A89b7A",
       "chainRaw": "1.166720",
       "chainShares": "1.167425",
-      "apiBalance": "1.166720",
-      "apiRawBalance": "1.166720",
-      "apiTokenPrice": null
+      "apiBalance": "1.166720185061007",
+      "apiRawBalance": "1166720185061006842",
+      "apiTokenPrice": "336.64317816008575321704000000"
     }
   ]
 }

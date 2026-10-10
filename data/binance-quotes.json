@@ -1,0 +1,279 @@
+{
+  "capturedAt": "2026-10-10T14:31:06.884Z",
+  "note": "Quotes only. Nothing was signed, built or submitted.",
+  "from": "BSC-USD 0x55d398326f99059fF775485246999027B3197955",
+  "receiver": "0x000000000000000000000000000000000000dEaD",
+  "chain": "56",
+  "rows": [
+    {
+      "symbol": "NVDAB",
+      "sizeUsd": 10,
+      "ms": 1200,
+      "ok": true,
+      "routes": [
+        {
+          "vendor": "LiquidMesh",
+          "mode": "SWAP",
+          "best": true,
+          "tokensOut": 0.043349143543479275,
+          "effectivePrice": 230.68506509177004,
+          "vsReferenceBps": 4.586809737932018,
+          "reportedImpactPct": "0.0005001788",
+          "gasUsd": "250000"
+        }
+      ]
+    },
+    {
+      "symbol": "NVDAB",
+      "sizeUsd": 100,
+      "ms": 436,
+      "ok": true,
+      "routes": [
+        {
+          "vendor": "LiquidMesh",
+          "mode": "SWAP",
+          "best": true,
+          "tokensOut": 0.4334907376232947,
+          "effectivePrice": 230.68543643693818,
+          "vsReferenceBps": 4.602914616542719,
+          "reportedImpactPct": "0.0005017877",
+          "gasUsd": "250000"
+        }
+      ]
+    },
+    {
+      "symbol": "NVDAB",
+      "sizeUsd": 1000,
+      "ms": 512,
+      "ok": true,
+      "routes": [
+        {
+          "vendor": "LiquidMesh",
+          "mode": "SWAP",
+          "best": true,
+          "tokensOut": 4.334837596318753,
+          "effectivePrice": 230.68914988861954,
+          "vsReferenceBps": 4.763963402667493,
+          "reportedImpactPct": "0.0005178768",
+          "gasUsd": "250000"
+        }
+      ]
+    },
+    {
+      "symbol": "NVDAB",
+      "sizeUsd": 10000,
+      "ms": 441,
+      "ok": true,
+      "routes": [
+        {
+          "vendor": "LiquidMesh",
+          "mode": "SWAP",
+          "best": true,
+          "tokensOut": 43.341033017604104,
+          "effectivePrice": 230.72823381801342,
+          "vsReferenceBps": 6.458995390676847,
+          "reportedImpactPct": "0.0006478722",
+          "gasUsd": "250000"
+        }
+      ]
+    },
+    {
+      "symbol": "NVDAB",
+      "sizeUsd": 100000,
+      "ms": 460,
+      "ok": true,
+      "routes": [
+        {
+          "vendor": "LiquidMesh",
+          "mode": "SWAP",
+          "best": true,
+          "tokensOut": 433.1773554911548,
+          "effectivePrice": 230.85232580224738,
+          "vsReferenceBps": 11.840744001787584,
+          "reportedImpactPct": "0.0020269181",
+          "gasUsd": "250000"
+        }
+      ]
+    },
+    {
+      "symbol": "SPYB",
+      "sizeUsd": 10,
+      "ms": 438,
+      "ok": true,
+      "routes": [
+        {
+          "vendor": "LiquidMesh",
+          "mode": "SWAP",
+          "best": true,
+          "tokensOut": 0.012813108989895534,
+          "effectivePrice": 780.4507093388527,
+          "vsReferenceBps": -1.3728887775832366,
+          "reportedImpactPct": "0.0001007890",
+          "gasUsd": "250000"
+        }
+      ]
+    },
+    {
+      "symbol": "SPYB",
+      "sizeUsd": 100,
+      "ms": 420,
+      "ok": true,
+      "routes": [
+        {
+          "vendor": "LiquidMesh",
+          "mode": "SWAP",
+          "best": true,
+          "tokensOut": 0.12812734297437953,
+          "effectivePrice": 780.4735326478759,
+          "vsReferenceBps": -1.0804913799811189,
+          "reportedImpactPct": "0.0001078894",
+          "gasUsd": "250000"
+        }
+      ]
+    },
+    {
+      "symbol": "SPYB",
+      "sizeUsd": 1000,
+      "ms": 531,
+      "ok": true,
+      "routes": [
+        {
+          "vendor": "LiquidMesh",
+          "mode": "SWAP",
+          "best": true,
+          "tokensOut": 1.2811824451575697,
+          "effectivePrice": 780.5289588377183,
+          "vsReferenceBps": -0.37040706869939655,
+          "reportedImpactPct": "0.0001788928",
+          "gasUsd": "250000"
+        }
+      ]
+    },
+    {
+      "symbol": "SPYB",
+      "sizeUsd": 10000,
+      "ms": 451,
+      "ok": true,
+      "routes": [
+        {
+          "vendor": "LiquidMesh",
+          "mode": "SWAP",
+          "best": true,
+          "tokensOut": 12.80733744333436,
+          "effectivePrice": 780.80241457248,
+          "vsReferenceBps": 3.1329300294546947,
+          "reportedImpactPct": "0.0004002314",
+          "gasUsd": "250000"
+        }
+      ]
+    },
+    {
+      "symbol": "SPYB",
+      "sizeUsd": 100000,
+      "ms": 587,
+      "ok": true,
+      "routes": [
+        {
+          "vendor": "LiquidMesh",
+          "mode": "SWAP",
+          "best": true,
+          "tokensOut": 127.62514612798451,
+          "effectivePrice": 783.5446464423118,
+          "vsReferenceBps": 38.26462200034797,
+          "reportedImpactPct": "0.0008930902",
+          "gasUsd": "250000"
+        }
+      ]
+    },
+    {
+      "symbol": "NOKB",
+      "sizeUsd": 10,
+      "ms": 415,
+      "ok": true,
+      "routes": [
+        {
+          "vendor": "LiquidMesh",
+          "mode": "SWAP",
+          "best": true,
+          "tokensOut": 0.962867738823988,
+          "effectivePrice": 10.385642385540551,
+          "vsReferenceBps": 20.599013227189378,
+          "reportedImpactPct": "0.0025470323",
+          "gasUsd": "250000"
+        }
+      ]
+    },
+    {
+      "symbol": "NOKB",
+      "sizeUsd": 100,
+      "ms": 424,
+      "ok": true,
+      "routes": [
+        {
+          "vendor": "LiquidMesh",
+          "mode": "SWAP",
+          "best": true,
+          "tokensOut": 9.624593178080994,
+          "effectivePrice": 10.39004954804111,
+          "vsReferenceBps": 24.851269040053747,
+          "reportedImpactPct": "0.0029701234",
+          "gasUsd": "250000"
+        }
+      ]
+    },
+    {
+      "symbol": "NOKB",
+      "sizeUsd": 1000,
+      "ms": 432,
+      "ok": true,
+      "routes": [
+        {
+          "vendor": "LiquidMesh",
+          "mode": "SWAP",
+          "best": true,
+          "tokensOut": 96.12569981581328,
+          "effectivePrice": 10.403045199318214,
+          "vsReferenceBps": 37.390138137345375,
+          "reportedImpactPct": "0.0000000000",
+          "gasUsd": "250000"
+        }
+      ]
+    },
+    {
+      "symbol": "NOKB",
+      "sizeUsd": 10000,
+      "ms": 462,
+      "ok": true,
+      "routes": [
+        {
+          "vendor": "LiquidMesh",
+          "mode": "SWAP",
+          "best": true,
+          "tokensOut": 961.0810994191359,
+          "effectivePrice": 10.404949182794107,
+          "vsReferenceBps": 39.227198786218054,
+          "reportedImpactPct": "0.0002939267",
+          "gasUsd": "250000"
+        }
+      ]
+    },
+    {
+      "symbol": "NOKB",
+      "sizeUsd": 100000,
+      "ms": 618,
+      "ok": true,
+      "routes": [
+        {
+          "vendor": "LiquidMesh",
+          "mode": "SWAP",
+          "best": true,
+          "tokensOut": 6340.691909582467,
+          "effectivePrice": 15.771149493775827,
+          "vsReferenceBps": 5216.811747226658,
+          "reportedImpactPct": "0.7070800856",
+          "gasUsd": "250000"
+        }
+      ]
+    }
+  ]
+}

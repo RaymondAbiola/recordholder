@@ -17,6 +17,7 @@
     "wallet": "tsx scripts/wallet.ts",
     "binance:probe": "tsx scripts/binance-probe.ts",
     "binance:balances": "tsx scripts/binance-balances.ts",
+    "binance:quote": "tsx scripts/binance-quote.ts",
     "rwa": "tsx scripts/rwa.ts",
     "typecheck": "tsc --noEmit"
   },

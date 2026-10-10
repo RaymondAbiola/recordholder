@@ -22,6 +22,7 @@ export const ENDPOINTS = {
   supportedChains: "/api/v1/dex/balance/supported/chain",
   tokenBalances: "/api/v1/dex/balance/token-balances-by-address",
   allTokenBalances: "/api/v1/dex/balance/all-token-balances-by-address",
+  aggregatorQuote: "/api/v1/dex/aggregator/quote",
   rwaPlatforms: "/api/v1/dex/market/rwa/platforms",
   rwaTokens: "/api/v1/dex/market/rwa/tokens",
   rwaPrice: "/api/v1/dex/market/rwa/price",

@@ -1,8 +1,13 @@
 import Link from "next/link";
 import { Brand } from "@/app/brand";
-import { loadBalances, binanceFindings } from "@/src/binance-data";
+import { loadBalances, binanceFindings, loadQuotes, summariseQuotes, valueCheck } from "@/src/binance-data";
 
 export const metadata = { title: "What Binance's API reports | Recordholder" };
+
+// balance comes back in whole tokens and rawBalance as an integer in smallest units (1e-18),
+// so they are only comparable after conversion
+const wholeTokens = (v: string | null): number | null =>
+  v === null ? null : /^\d+$/.test(v) && v.length > 12 ? Number(v) / 1e18 : Number(v);
 
 const fmt = (v: string | null, places = 4) =>
   v === null ? "none" : Number(v).toLocaleString("en-US", { minimumFractionDigits: places, maximumFractionDigits: places });
@@ -11,8 +16,14 @@ export default function BinancePage() {
   const cap = loadBalances();
   const f = binanceFindings();
   if (!cap || !f) return null;
+  const value = valueCheck(cap, f);
+  const quotesRaw = loadQuotes();
+  const qs = quotesRaw ? summariseQuotes(quotesRaw) : null;
 
-  const allRaw = cap.rows.every((r) => r.apiBalance === r.apiRawBalance && r.apiBalance === Number(r.chainRaw).toFixed(6));
+  const close = (a: number | null, b: number) => a !== null && Math.abs(a - b) <= 1e-6 * Math.max(Math.abs(b), 1e-12);
+  const allRaw = cap.rows.every(
+    (r) => close(wholeTokens(r.apiBalance), Number(r.chainRaw)) && close(wholeTokens(r.apiRawBalance), Number(r.chainRaw))
+  );
   const unlisted = cap.rows.filter((r) => !f.ratioByAddress.has(r.address.toLowerCase())).map((r) => r.symbol);
 
   return (
@@ -53,7 +64,6 @@ export default function BinancePage() {
                 <th>Security</th>
                 <th>Ticker</th>
                 <th className="r">API: balance</th>
-                <th className="r">API: rawBalance</th>
                 <th className="r">Shares owned</th>
                 <th className="r">Binance&rsquo;s ratio</th>
               </tr>
@@ -64,7 +74,6 @@ export default function BinancePage() {
                   <td>{r.underlying}</td>
                   <td className="sym">{r.symbol}</td>
                   <td className="r quiet">{fmt(r.apiBalance, 4)}</td>
-                  <td className="r quiet">{fmt(r.apiRawBalance, 4)}</td>
                   <td className="r">{fmt(r.chainShares, 4)}</td>
                   <td className="r">
                     {f.ratioByAddress.get(r.address.toLowerCase()) ? (
@@ -81,9 +90,10 @@ export default function BinancePage() {
 
         <div className="callout flag">
           <p>
-            {allRaw ? `In all ${cap.rows.length} rows` : "In these rows"}, both fields report the raw token
-            amount, so neither is the number of shares the account owns. The field named{" "}
-            <span className="num">balance</span> is identical to <span className="num">rawBalance</span>.
+            {allRaw ? `In all ${cap.rows.length} rows` : "In these rows"}, both fields describe the raw token
+            amount: <span className="num">balance</span> in whole tokens and{" "}
+            <span className="num">rawBalance</span> as an integer in smallest units. Each equals the chain&rsquo;s
+            raw balance, and neither is the number of shares the account owns.
           </p>
           <p>
             The correct figure is in Binance&rsquo;s API. Its token list publishes{" "}
@@ -189,14 +199,83 @@ export default function BinancePage() {
       </section>
 
       <section className="section">
+        <h2>What it does and does not cost a holder</h2>
+        <p className="lede">
+          Each balance row also carries a <span className="num">tokenPrice</span>. Compared with the
+          issuer&rsquo;s per-share price multiplied by its ratio, it matches exactly for {value.perToken} of{" "}
+          {value.compared} rows, and the worst row is off by {value.worstPpm.toFixed(0)} parts per million.
+          So the price is per token, and raw balance times that price gives the correct dollar value.
+        </p>
+        <div className="callout">
+          <p>
+            <strong>The dollar value is right. The share count is not.</strong> A holder sees the
+            correct total but a share count that omits every dividend reinvestment, and anything computed
+            from that count inherits the error: shares held, dividend per share, position size against a
+            benchmark.
+          </p>
+        </div>
+      </section>
+
+      {qs && (
+        <section className="section">
+          <h2>What it costs to trade them</h2>
+          <p className="lede">
+            Prices requested from Binance&rsquo;s aggregator for buying with USDT at five order sizes. Quotes
+            only: nothing was signed, built or submitted. Each took a median of {qs.medianMs} ms (range{" "}
+            {qs.minMs} to {qs.maxMs}, {qs.quotes} quotes). Every quote returned exactly {qs.maxRoutesPerQuote}{" "}
+            route, from {qs.vendors.join(", ")}.
+          </p>
+          <div className="scroller">
+            <table className="ledger">
+              <thead>
+                <tr>
+                  <th>Ticker</th>
+                  {qs.sizes.slice(1).map((sz) => (
+                    <th key={sz} className="r">
+                      Extra at ${sz.toLocaleString("en-US")}
+                    </th>
+                  ))}
+                  <th className="r">Binance reports at ${qs.sizes[qs.sizes.length - 1]!.toLocaleString("en-US")}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {qs.tokens.map((t) => (
+                  <tr key={t.symbol}>
+                    <td className="sym">{t.symbol}</td>
+                    {qs.sizes.slice(1).map((sz) => (
+                      <td key={sz} className={`r ${(t.extraBps[sz] ?? 0) > 100 ? "flag" : "quiet"}`}>
+                        {t.extraBps[sz] === null ? "none" : `${t.extraBps[sz]! >= 0 ? "+" : ""}${t.extraBps[sz]!.toFixed(1)} bps`}
+                      </td>
+                    ))}
+                    <td className="r">{t.reportedAtLargest === null ? "none" : `${Number(t.reportedAtLargest).toFixed(4)}%`}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="lede" style={{ marginTop: "1rem" }}>
+            Extra cost is the effective price against the ${qs.sizes[0]} order, in basis points of price, so it
+            isolates what size alone adds. It is small for a liquid name and enormous for a thin one.
+            The last column is the field Binance labels <span className="num">priceImpactPercent</span>,
+            exactly as returned. It does not track the measured cost: where size alone adds more than 50%
+            to the price, the field reports under 1%.
+          </p>
+          <div className="callout">
+            <p>
+              Captured {qs.capturedAt.slice(0, 10)}, a Saturday, while US markets were closed. These are
+              quotes from a single venue on a weekend, not a general statement about liquidity, and the
+              absence of any RFQ or PancakeSwap route was observed, not explained.
+            </p>
+          </div>
+        </section>
+      )}
+
+      <section className="section">
         <h2>Not established</h2>
         <p className="lede">
-          Each balance row also carries a <span className="num">tokenPrice</span>. In the rows checked
-          against the token list, five match the per-token price exactly, none match the per-share
-          price, and eleven match neither at a tight tolerance, so whether{" "}
-          <span className="num">balance × tokenPrice</span> gives the right dollar value is supported
-          for some tokens and not shown for all. The reason the two counts above differ was not found.
-          Which price Venus&rsquo;s feed quotes was not settled either.
+          Why the platform summary and the token list disagree on how many tokens exist. Which price
+          Venus&rsquo;s feed quotes. How Ondo adjusts for corporate actions. Why the aggregator returned
+          one route per quote.
         </p>
       </section>
 

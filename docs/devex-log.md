@@ -183,7 +183,10 @@ rawBalance: RAW 16
 ```
 
 **Result: 16 of 16 raw, in both fields on the first run, and 19 of 19 once paging was fixed (see below).** The field named `balance`, which is the one a
-consumer would reach for, is identical to `rawBalance` and does not include the multiplier. So
+consumer would reach for, does not include the multiplier. (`balance` is in whole tokens and
+`rawBalance` is the same amount as an integer in smallest units, so they are equal only after
+converting units. The terminal table normalised that away, which is why this log first said
+"identical", and the refreshed capture showed it.) So
 the issuer's own developer API shows the un-multiplied figure for the issuer's own product. The
 same API's token list publishes `tokenToShareRatio`, the multiplier itself, so the correct number
 is available from Binance and nothing joins the two. Neither endpoint's documentation says that
@@ -211,15 +214,55 @@ was wrong and is withdrawn.
 
 **Latency:** 5775ms for five pages of 100, about 1.15s per page.
 
-**What each row's `tokenPrice` is, from the rerun:** compared against the per-share reference price
-(16 rows, the other 3 having no reference in the token list), 5 matched the per-token derivation
-(reference x multiplier) within 1e-5, **none matched the per-share price**, and 11 matched neither
-at that tolerance. So the price carried in these rows is not simply the per-share price, and for
-5 tokens it is exactly the per-token one. The 11 are not characterised: they may be a live market
-quote or simply off by more than 1e-5 from a derived value, and the first version of the script
-printed a verdict rather than the figures. It now prints price, reference, ratio and the distance
-from the per-token value in ppm per row. Treat the claim "value is right while the share count is
-wrong" as supported by 5 rows and contradicted by none, not as established.
+**What each row's `tokenPrice` is: CORRECTED on 2026-10-10 (later).** The paragraph that stood
+here reported 5 rows matching the per-token price, none matching per-share, and 11 matching
+neither, and called the claim "not established". That was an artefact of my own comparison: the
+reference prices it was checked against had been cached about 15 minutes earlier, and the issuer's
+reference moves. Rerun with the token list refetched immediately before, **15 of 16 rows match the
+per-token price (reference x multiplier) with 0 ppm error, and the sixteenth, QQQB, is off by 13
+ppm.** None match the per-share price. So the price in a balance row is per token, and
+`balance x tokenPrice` is the correct dollar value.
+
+The consequence, stated narrowly: **the dollar value is right and the share count is not.** The
+raw balance times the per-token price equals the true share count times the per-share price, so
+nobody is shown a wrong total. What is wrong is the share count, and anything derived from it.
+
+---
+
+## 2026-10-10 — liquidity and slippage, measured from quotes only
+
+Method: `npm run binance:quote` requests `/dex/aggregator/quote` for BSC-USD into a bStock at
+$10, $100, $1,000, $10,000 and $100,000. A quote is a price request with a roughly 30 second id that
+only the swap endpoint consumes, so nothing was signed, built or submitted and no funds moved.
+Three tokens, five sizes, 15 quotes, captured 2026-10-10 14:31 UTC, **a Saturday with US markets
+closed.** Raw results are in `data/binance-quotes.json`.
+
+| ticker | extra cost at $100 | $1,000 | $10,000 | $100,000 | Binance's `priceImpactPercent` at $100,000 |
+| --- | --- | --- | --- | --- | --- |
+| NVDAB | 0.0 bps | 0.2 | 1.9 | 7.3 | 0.0020% |
+| SPYB | 0.3 | 1.0 | 4.5 | 39.6 | 0.0009% |
+| NOKB | 4.2 | 16.8 | 18.6 | 5,185.5 | 0.707% |
+
+"Extra cost" is the effective price against the same token's $10 quote, so it isolates what size
+alone adds and leaves out any weekend gap between a pool and last Friday's reference price.
+
+Findings:
+- **Latency:** median 451 ms, range 415 to 1,200 ms, over 15 quotes.
+- **One route per quote, every time**, from LiquidMesh in `SWAP` mode. No RFQ route appeared,
+  although the docs say bStocks and Ondo are quoted through RFQ routes and need a receiver
+  address, and no PancakeSwap route appeared although pools exist there. Not explained. It may
+  reflect markets being closed.
+- **Cost grows very unevenly by security.** 7.3 bps for NVIDIA across four orders of magnitude, 40
+  for SPY, and for Nokia a $100,000 order executes about 52% above the $10 price.
+- **`priceImpactPercent` does not track executable cost.** For Nokia at $100,000 it reports 0.707%
+  while the measured extra cost is 51.9%; for SPY it reports 0.0009% against a measured 0.40%. At
+  $1,000 Nokia it reports 0.0000000000% against a measured 16.8 bps. Its units and meaning are not
+  documented, and a consumer using it to size an order would be badly misled for thin tokens.
+- The first run showed the same pattern as the second (NVDAB 4.3 to 12.0 bps against 4.6 to 11.8
+  over the reference), so the numbers are stable across runs minutes apart.
+
+Limits: three tokens, one day, one venue, no execution, and a weekend. This says nothing about
+weekday liquidity or RFQ pricing.
 
 ---
 

@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-10T13:06:59.273Z",
-  "headBlock": "126832787",
+  "generatedAt": "2026-10-10T14:32:41.880Z",
+  "headBlock": "126844206",
   "scanStart": "112500000",
   "samples": 18,
   "histories": [
@@ -73,7 +73,7 @@
     {
       "symbol": "CRMB",
       "address": "0x8C433eCa1be0e2a357015602F63751C768F6f643",
-      "firstSeenBlock": "120087946",
+      "firstSeenBlock": "120093991",
       "multiplierAtFirstSeen": "1000000000000000000",
       "events": [
         {
