@@ -64,6 +64,43 @@ response before stating it, since a published client can lag its API.
 
 ---
 
+## 2026-10-10 — Binance Web3 API, first successful call
+
+**Result:** first authenticated call returned HTTP 200 in 1028ms (`/dex/balance/supported/chain`),
+the second in 914ms (`/dex/market/rwa/platforms`). The signing scheme recovered from the
+published wheels was correct on the first live attempt. Time from opening the docs to this
+call: *fill in from your stopwatch, and say which part is measured and which estimated.*
+
+**Not Binance's fault, do not count as friction:** one earlier failed run was a bug in my own
+code (the env file was never loaded by that script), and one was the VPN being off.
+
+**Confirmed from the live API:**
+- BSC is `binanceChainId` `"56"`. Stated in the client docs, and consistent with the platforms
+  response, which places all 91 bStocks on chain `56` only.
+- `/rwa/platforms` serves exactly two platforms, `ondo` (459 tickers, 458 tokens on BSC) and
+  `bstock` (91 tickers, all on BSC). **xStocks is absent**, although the hackathon names it as
+  an acceptable focus. So one of the three named products cannot be reached through the sponsor's
+  own RWA API at all.
+- The token list response carries `tokenToShareRatio`, `tokenPrice`, `referencePrice` and a
+  per-token `statusInfo` with market status and next open and close times, which is the
+  market-hours data the report asks about.
+
+**Error-message quality, one real data point:** when the host did not resolve, node's fetch
+reported only `fetch failed` and hid `ENOTFOUND` inside `error.cause`. That is a Node
+behaviour, not Binance's, but anyone building against this API from a region that needs a VPN
+will hit it. Worth saying that the API is unreachable by name without one, and that nothing
+tells you so.
+
+**Mistake to avoid repeating in the report:** my probe printed `BSC entry` for the Ethereum
+row, because a case-insensitive match on "bnb" hit `bnbstatic.com` in its logo URL. That was a
+bug in my matching, not a quirk of the API.
+
+**Pending, run `npm run rwa`:** whether Binance's list of 91 bStocks is larger than the 83 our
+catalogue found, whether `tokenToShareRatio` equals the on-chain multiplier (and which way
+round), and whether Ondo's tokens carry the same multiplier mechanism.
+
+---
+
 ## OPEN — Binance Web3 API, first contact
 
 The client and the balance comparison are written and verified as far as they can be

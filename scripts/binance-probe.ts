@@ -59,10 +59,10 @@ const probe = async (label: string, path: string, params: Record<string, string 
 
 const chains = await probe("supported chains", ENDPOINTS.supportedChains);
 if (chains) {
-  const text = JSON.stringify(chains);
-  const bsc = text.match(/\{[^{}]*(?:BSC|BNB|Binance Smart)[^{}]*\}/i);
-  console.log(`  BSC entry: ${bsc ? bsc[0].slice(0, 220) : "not obvious, full payload below"}`);
-  if (!bsc) console.log(`  ${text.slice(0, 900)}`);
+  const list = (chains as { data?: { binanceChainId?: string; name?: string }[] }).data ?? [];
+  console.log(`  ${list.length} chains: ${list.map((c) => `${c.binanceChainId}=${c.name}`).join(", ")}`);
+  const bsc = list.find((c) => /^(bnb|bsc|binance smart)/i.test(c.name ?? ""));
+  console.log(`  BSC: ${bsc ? `binanceChainId "${bsc.binanceChainId}"` : "not found by name, read the list above"}`);
 }
 
 const platforms = await probe("rwa issuance platforms", ENDPOINTS.rwaPlatforms);
@@ -79,12 +79,7 @@ if (!chains && !platforms) {
   process.exit(1);
 }
 
-const chainId = process.env.BINANCE_BSC_CHAIN_ID;
-if (!chainId) {
-  console.log("\nset BINANCE_BSC_CHAIN_ID from the supported chains output, then re-run");
-  console.log("to probe the token list and compare it against our catalogue.");
-  process.exit(0);
-}
+const chainId = process.env.BINANCE_BSC_CHAIN_ID || "56";
 
 const tokens = await probe("rwa token list, bstock", ENDPOINTS.rwaTokens, {
   binanceChainId: chainId,
