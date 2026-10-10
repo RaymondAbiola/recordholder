@@ -6,6 +6,7 @@ import { loadSweep, loadEvents } from "./snapshot";
 import type { SweepRow } from "./sweep";
 import type { MultiplierEvent } from "./events";
 import type { WalletReport } from "./wallet";
+import { loadRwa, pricedHidden, type PricedHidden } from "./pricing";
 
 export function amount(v: bigint, decimals = 18, places = 4): string {
   return Number(formatUnits(v, decimals)).toLocaleString("en-US", {
@@ -54,6 +55,8 @@ export type Overview = {
   notice: { min: number; median: number; max: number; count: number } | null;
   /** Venus's permitted price staleness on these same tokens, for comparison */
   oracleStalenessSeconds: number;
+  /** dollar value of the undisclosed shares the issuer publishes a price for, if available */
+  priced: PricedHidden | null;
 };
 
 export const VENUS_STALENESS_SECONDS = 3900;
@@ -86,6 +89,10 @@ export function buildOverview(): Overview | null {
         }
       : null,
     oracleStalenessSeconds: VENUS_STALENESS_SECONDS,
+    priced: (() => {
+      const rwa = loadRwa();
+      return rwa ? pricedHidden(sweep, rwa) : null;
+    })(),
   };
 }
 

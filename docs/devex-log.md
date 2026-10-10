@@ -95,9 +95,62 @@ tells you so.
 row, because a case-insensitive match on "bnb" hit `bnbstatic.com` in its logo URL. That was a
 bug in my matching, not a quirk of the API.
 
-**Pending, run `npm run rwa`:** whether Binance's list of 91 bStocks is larger than the 83 our
-catalogue found, whether `tokenToShareRatio` equals the on-chain multiplier (and which way
-round), and whether Ondo's tokens carry the same multiplier mechanism.
+**Follow-up:** the RWA cross-check has now run, see the next entry.
+
+---
+
+## 2026-10-10 — Binance RWA API cross-checked against the chain
+
+Method: `npm run rwa` fetches `/dex/market/rwa/tokens` for `bstock` and `ondo` on chain `56`,
+then reads the multiplier and interface support for every returned token directly from the
+chain. Raw responses are cached in `data/rwa-tokens.json`.
+
+**The API disagrees with itself about how many tokens exist.** `/rwa/platforms` reports 91
+bStocks and 458 Ondo tokens on BSC. `/rwa/tokens` for the same platform and chain returns 46 and
+442. Neither request model nor response model has a page or limit parameter, so this is not
+pagination. Our own catalogue, found independently and verified on chain, holds 83 bStocks and
+contains all 46 that Binance's list returns, plus 37 it does not. So the token list is a subset
+of what exists, and the platform summary (91) exceeds what we found (83), which means neither
+source is shown to be complete. Unexplained; reported as found.
+
+**`tokenToShareRatio` is the on-chain multiplier.** For 19 of 19 divergent bStocks in Binance's
+list it equals `uiMultiplier()` to every digit shown, and for none is it the inverse. The other
+27 returned tokens sit at exactly 1.0 and carry no information. This is the ratio, not a
+balance, so it does not by itself say what the balances endpoint reports.
+
+**`tokenPrice` is not a market price.** For 19 of 19 divergent tokens,
+`tokenPrice == referencePrice x tokenToShareRatio` with zero error at 1e-12. So the API
+publishes two different prices that differ by exactly the multiplier: `referencePrice` is per
+share and pairs with a share count, `tokenPrice` is per token and pairs with a raw balance.
+Using the wrong one with the wrong quantity is the trap this whole project is about, and the
+API makes both available but does not say which belongs with which.
+
+**Ondo does not use this mechanism, as far as these probes can tell.** Of 442 Ondo tokens, none
+reported support for the ERC-8056 core or scheduled interface IDs and none exposed
+`sharesMultiplier()`. How Ondo adjusts for corporate actions was not determined, and a function
+under another name would not have been found.
+
+**xStocks is not in this API at all** (`/rwa/platforms` lists two platforms).
+
+**Market hours.** bStocks report `openState: true` for all 46 tokens on a Saturday, with no
+`marketStatus` and no next open or close time. Ondo reports `closed` for 411 and `offhours` for
+31, with next open and close times. So the issuer's own product is modelled as always open and
+the third-party one carries a trading calendar.
+
+**Does Venus's feed quote per share or per token? Leans per share, not established.** NVDAB on
+2026-10-10: Venus's oracle 230.315, Binance reference (per share) 230.40, Binance token price
+(per token) 230.579. Venus sits 0.037% below the per-share price and 0.115% below the per-token
+price. On 2026-10-03: Venus 234.50 against an AMM price of 234.64 for the raw token, which
+implies about 234.46 per share, so Venus was 0.018% above per share and 0.060% below per token.
+Both observations are closer to per share. But the gaps are the same size as ordinary feed
+noise and the multiplier itself is only 0.0778%, so these data cannot discriminate and the site
+does not claim either way. If the feed is per share the error is conservative for the protocol,
+since the multiplier has only risen so far, and matters for borrowers only once borrowing is
+enabled, which it is not.
+
+**Value of the undisclosed shares:** at least $224,743, at last-close reference prices, across
+the 19 divergent securities Binance prices. It does not price SOXSB (1,461 undisclosed shares),
+GSB, PYPLB, CRMB, AMATB or AAPLB, so the true total is higher.
 
 ---
 

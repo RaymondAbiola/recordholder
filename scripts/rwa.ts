@@ -164,7 +164,9 @@ if (rows.length > 12) console.log(`    ... ${rows.length - 12} more`);
 console.log(`  divergent tokens: equals multiplier ${direct}, equals 1/multiplier ${inverse}, neither ${neither}`);
 console.log(`  tokens at exactly 1.0 (uninformative): ${flat}, unreadable: ${noRatio}`);
 if (direct > 0 && inverse === 0 && neither === 0) {
-  console.log("  FINDING: binance publishes the multiplier-adjusted share count at source.");
+  console.log("  FINDING: binance publishes the multiplier itself, as tokenToShareRatio, for these tokens.");
+  console.log("  That is the ratio, not a balance. What its balances endpoint reports is a separate");
+  console.log("  question, answered by `npm run binance:balances`.");
 } else if (neither > 0 || (direct > 0 && inverse > 0)) {
   console.log("  MIXED: record the rows above verbatim, do not summarise.");
 }
@@ -173,6 +175,16 @@ if (direct > 0 && inverse === 0 && neither === 0) {
 console.log("\n3. token price against reference price, divergent tokens only");
 console.log("-".repeat(72));
 console.log("  (weekend: reference is a last close, token trades 24/7, so a gap is expected)");
+let identity = 0, compared = 0;
+for (const t of bstock) {
+  const ratio = Number(t.tokenToShareRatio), tp = Number(t.tokenPrice), rp = Number(t.referencePrice);
+  const m = mult.get(t.address.toLowerCase());
+  if (!m || m === 10n ** 18n || !ratio || !tp || !rp) continue;
+  compared++;
+  if (Math.abs(tp - rp * ratio) / tp < 1e-9) identity++;
+}
+console.log(`  tokenPrice == referencePrice x tokenToShareRatio for ${identity} of ${compared} divergent tokens`);
+console.log("  (if so, tokenPrice is derived from the share price and the multiplier, not a market quote)");
 let shown = 0;
 for (const t of bstock) {
   const m = mult.get(t.address.toLowerCase());

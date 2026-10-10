@@ -10,7 +10,9 @@ held through, and exports the result.
 
 As of 2026-10-10, 25 of the 83 bStocks have multipliers above 1.0, and 24 corporate
 actions have been recorded since July, hiding roughly 2,896 shares across all holders.
-That is a count of shares, not a value: one hidden NVIDIA share and one hidden Nokia
+The catalogue holds the 83 bStocks that could be found and verified on chain; Binance's own
+RWA API advertises 91 on BSC but returns only 46 from its token list, so completeness is not
+confirmed. That is a count of shares, not a value: one hidden NVIDIA share and one hidden Nokia
 share are both one share. The deployed site reads the same snapshots as this repo, so
 the figures match.
 

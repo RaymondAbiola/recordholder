@@ -1,56 +1,42 @@
 // Does Binance's own developer API report BEP-677 balances raw, or multiplier-adjusted?
 //
-// Both answers are findings. Raw means the issuer's own developer surface shows the
-// un-multiplied figure for the issuer's own tokenized stock product. Adjusted means the
-// correct number exists at source and simply does not propagate to anything else.
+// The balances response carries two fields per token, `balance` and `rawBalance`, so the
+// question is really what each of them contains. Each is compared against the chain, for
+// every divergent token the address holds, so one ambiguous row cannot decide the result.
 //
-// The comparison is run across every divergent token the address holds, so one token
-// landing ambiguously does not decide it.
+//   npm run binance:balances -- <address>
+//   npm run binance:balances -- <address> --dry-run     builds the request, sends nothing
 
 import { formatUnits, isAddress, getAddress, type Address } from "viem";
 import { client } from "../src/config";
 import { loadSweep } from "../src/snapshot";
 import { readPositions } from "../src/wallet";
-import {
-  buildSignedRequest,
-  call,
-  describeCredentials,
-  verifySigning,
-  baseUrl,
-  ENDPOINTS,
-  BinanceConfigError,
-} from "../src/binance";
+import { buildSignedRequest, call, describeCredentials, verifySigning, baseUrl, ENDPOINTS } from "../src/binance";
 
-// Confirm against the developer portal before the first live run; override with
-// BINANCE_BALANCE_PATH rather than editing this.
-const BALANCE_PATH = process.env.BINANCE_BALANCE_PATH || ENDPOINTS.tokenBalances;
 const CHAIN_ID = process.env.BINANCE_BSC_CHAIN_ID || "56";
+const PAGE_SIZE = 100;
+const MAX_PAGES = 5;
 
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
 const account = args.find((a) => isAddress(a));
 
+const checks = verifySigning();
 console.log("signing self-check");
-console.log(`  hmac-sha256 vector  ${verifySigning().hmac ? "ok" : "FAILED"}`);
-console.log(`  credentials         ${describeCredentials()}`);
-console.log(`  base url            ${baseUrl()}`);
-console.log(`  endpoint            ${BALANCE_PATH}`);
+console.log(`  hmac vector ${checks.hmac ? "ok" : "FAILED"}, pre-hash ${checks.preHash ? "ok" : "FAILED"}`);
+console.log(`  credentials ${describeCredentials()}`);
+console.log(`  base url    ${baseUrl()}`);
+console.log(`  endpoint    ${ENDPOINTS.allTokenBalances}  (chains=${CHAIN_ID}, pageSize=${PAGE_SIZE})`);
+if (!checks.hmac || !checks.preHash) process.exit(1);
 
-if (!verifySigning().hmac) process.exit(1);
+const query = (addr: string, page: number) => ({ address: addr, chains: CHAIN_ID, page, pageSize: PAGE_SIZE });
 
 if (dryRun) {
   try {
-    const req = buildSignedRequest(BALANCE_PATH, {
-      binanceChainId: CHAIN_ID,
-      address: account ?? "0x0000000000000000000000000000000000000000",
-    });
-    const redacted = req.url;
+    const req = buildSignedRequest(ENDPOINTS.allTokenBalances, query(account ?? "0x" + "0".repeat(40), 1));
     console.log("\ndry run, nothing sent");
-    console.log(`  method    ${req.method}`);
-    console.log(`  url       ${redacted}`);
-    console.log("  headers   X-OC-APIKEY <redacted>, X-OC-TIMESTAMP, X-OC-SIGN <redacted>,");
-    console.log("            X-OC-RECV-WINDOW 15000, X-OC-NONCE");
-    console.log(`  signed    ${req.preHash}`);
+    console.log(`  ${req.method} ${req.url}`);
+    console.log(`  signed string: ${req.preHash}`);
   } catch (e) {
     console.log(`\ndry run: ${e instanceof Error ? e.message : String(e)}`);
   }
@@ -69,130 +55,106 @@ if (!sweep) {
 }
 
 const addr = getAddress(account) as Address;
-const divergentTokens = sweep.divergent.map((r) => r.address);
+const divergent = new Set(sweep.divergent.map((r) => r.address.toLowerCase()));
 
 console.log(`\nchain side, ${addr}`);
-const positions = (await readPositions(client, addr)).filter((p) =>
-  divergentTokens.includes(p.token.address)
+const positions = (await readPositions(client, addr)).filter(
+  // sub-token balances are rounded away by a display field, so they cannot tell the two apart
+  (p) => divergent.has(p.token.address.toLowerCase()) && p.raw >= 10n ** BigInt(p.token.decimals)
 );
 if (positions.length === 0) {
-  console.error("  holds none of the divergent tokens, so there is nothing to compare");
+  console.error("  holds no divergent token with a balance of at least 1, nothing to compare");
   process.exit(1);
 }
-console.log(`  ${positions.length} divergent holdings read from chain`);
+console.log(`  ${positions.length} comparable holdings read from chain`);
+
+type Asset = {
+  tokenContractAddress?: string;
+  symbol?: string;
+  balance?: string;
+  rawBalance?: string;
+  tokenPrice?: string;
+  isRiskToken?: boolean;
+};
 
 console.log("\nbinance side");
-let res;
-try {
-  res = await call<unknown>(BALANCE_PATH, { binanceChainId: CHAIN_ID, address: addr });
-} catch (e) {
-  if (e instanceof BinanceConfigError) {
-    console.error(`  ${e.message}`);
+const assets: Asset[] = [];
+let totalMs = 0;
+for (let page = 1; page <= MAX_PAGES; page++) {
+  const res = await call<{ code?: number | string; msg?: string; data?: { tokenAssets?: Asset[] }[] }>(
+    ENDPOINTS.allTokenBalances,
+    query(addr, page)
+  );
+  totalMs += res.elapsedMs;
+  if (!res.ok) {
+    console.error(`  page ${page} failed: ${res.error}`);
+    if (res.body) console.error(`  body: ${res.body}`);
     process.exit(1);
   }
-  throw e;
-}
-
-console.log(`  ${res.elapsedMs}ms`);
-if (!res.ok) {
-  console.error(`  failed: ${res.error}`);
-  if (res.body) console.error(`  body: ${res.body}`);
-  console.error("\nIf this is a 404 the endpoint path is wrong; set BINANCE_BALANCE_PATH.");
-  console.error("If it is an auth error, check the key is enabled for the Web3 API.");
-  process.exit(1);
-}
-
-// Shape is unknown until the first live response. Walk the JSON for anything that
-// pairs a contract address with an amount, and dump it if nothing matches.
-type Found = { address: string; amount: string };
-const found: Found[] = [];
-const walk = (node: unknown): void => {
-  if (Array.isArray(node)) return node.forEach(walk);
-  if (node && typeof node === "object") {
-    const o = node as Record<string, unknown>;
-    const addrKey = ["contractAddress", "tokenAddress", "address", "contract"].find(
-      (k) => typeof o[k] === "string" && isAddress(o[k] as string)
-    );
-    const amtKey = ["balance", "amount", "rawBalance", "quantity", "value"].find(
-      (k) => typeof o[k] === "string" || typeof o[k] === "number"
-    );
-    if (addrKey && amtKey) found.push({ address: o[addrKey] as string, amount: String(o[amtKey]) });
-    Object.values(o).forEach(walk);
+  const got = (res.data.data ?? []).flatMap((d) => d.tokenAssets ?? []);
+  if (page === 1 && got.length === 0) {
+    console.log("  no tokenAssets in the response. raw shape follows:\n");
+    console.log(JSON.stringify(res.data, null, 2).slice(0, 2500));
+    process.exit(0);
   }
-};
-walk(res.data);
-
-if (found.length === 0) {
-  console.log("  could not locate balances in the response. raw shape follows:\n");
-  console.log(JSON.stringify(res.data, null, 2).slice(0, 2500));
-  process.exit(0);
+  assets.push(...got);
+  if (got.length < PAGE_SIZE) break;
 }
+console.log(`  ${assets.length} tokens returned in ${totalMs}ms across the pages fetched`);
 
-console.log(`  ${found.length} balance entries returned\n`);
+const byAddress = new Map(
+  assets.filter((a) => a.tokenContractAddress).map((a) => [a.tokenContractAddress!.toLowerCase(), a])
+);
 
-const byAddress = new Map(found.map((f) => [f.address.toLowerCase(), f.amount]));
-let rawMatches = 0;
-let uiMatches = 0;
-let neither = 0;
+// A field may be a decimal string ("2329.2025") or an integer in smallest units.
+const toNumber = (v: string | undefined, decimals: number): number | null => {
+  if (v === undefined || v === "") return null;
+  if (/^\d+$/.test(v) && v.length > decimals - 4) return Number(formatUnits(BigInt(v), decimals));
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
+};
+
+const REL = 1e-6;
+const near = (a: number, b: number) => Math.abs(a - b) <= REL * Math.max(Math.abs(b), 1e-18);
+const classify = (reported: number | null, raw: number, shares: number) => {
+  if (reported === null) return "missing";
+  const isRaw = near(reported, raw);
+  const isUi = near(reported, shares);
+  if (isRaw && isUi) return "either";
+  return isRaw ? "RAW" : isUi ? "UI-adjusted" : "neither";
+};
+
+const tally = { balance: new Map<string, number>(), rawBalance: new Map<string, number>() };
+const bump = (m: Map<string, number>, k: string) => m.set(k, (m.get(k) ?? 0) + 1);
 
 console.log(
-  `${"SYM".padEnd(8)}${"binance reports".padStart(20)}${"raw".padStart(20)}${"ui-adjusted".padStart(20)}  verdict`
+  `\n${"SYM".padEnd(8)}${"chain raw".padStart(16)}${"chain shares".padStart(16)}${"api balance".padStart(16)}${"api rawBalance".padStart(16)}  balance / rawBalance`
 );
-console.log("-".repeat(90));
-
+console.log("-".repeat(98));
+let missing = 0;
 for (const p of positions) {
-  const reported = byAddress.get(p.token.address.toLowerCase());
-  if (reported === undefined) continue;
-
-  // tolerate decimal strings as well as integer wei
-  const asWei = reported.includes(".")
-    ? BigInt(Math.round(Number(reported) * 10 ** p.token.decimals))
-    : BigInt(reported);
-
-  const near = (a: bigint, b: bigint) => {
-    const d = a > b ? a - b : b - a;
-    return b === 0n ? d === 0n : (d * 1_000_000n) / (b < 0n ? -b : b) < 100n; // within 0.01%
-  };
-
-  let verdict: string;
-  if (near(asWei, p.raw) && !near(asWei, p.shares)) {
-    verdict = "RAW";
-    rawMatches++;
-  } else if (near(asWei, p.shares) && !near(asWei, p.raw)) {
-    verdict = "ui-adjusted";
-    uiMatches++;
-  } else if (near(asWei, p.raw) && near(asWei, p.shares)) {
-    verdict = "indistinguishable";
-  } else {
-    verdict = "neither";
-    neither++;
-  }
-
+  const a = byAddress.get(p.token.address.toLowerCase());
+  if (!a) { missing++; continue; }
+  const raw = Number(formatUnits(p.raw, p.token.decimals));
+  const shares = Number(formatUnits(p.shares, p.token.decimals));
+  const b = toNumber(a.balance, p.token.decimals);
+  const rb = toNumber(a.rawBalance, p.token.decimals);
+  const cb = classify(b, raw, shares);
+  const crb = classify(rb, raw, shares);
+  bump(tally.balance, cb);
+  bump(tally.rawBalance, crb);
+  const f = (n: number | null) => (n === null ? "-" : n.toFixed(6));
   console.log(
-    p.token.symbol.padEnd(8) +
-      formatUnits(asWei, p.token.decimals).slice(0, 18).padStart(20) +
-      formatUnits(p.raw, p.token.decimals).slice(0, 18).padStart(20) +
-      formatUnits(p.shares, p.token.decimals).slice(0, 18).padStart(20) +
-      "  " +
-      verdict
+    p.token.symbol.padEnd(8) + f(raw).padStart(16) + f(shares).padStart(16) + f(b).padStart(16) + f(rb).padStart(16) + `  ${cb} / ${crb}`
   );
 }
+console.log("-".repeat(98));
+if (missing) console.log(`${missing} held token(s) were not returned by the API at all`);
 
-console.log("-".repeat(90));
-console.log(`\nraw: ${rawMatches}   ui-adjusted: ${uiMatches}   neither: ${neither}`);
-
-if (rawMatches > 0 && uiMatches === 0) {
-  console.log(
-    "\nFINDING: the API reports raw balances. Binance's own developer surface shows the\n" +
-      "un-multiplied figure for Binance's own tokenized stock product, so a consumer\n" +
-      "building against it inherits the same blind spot as reading balanceOf directly."
-  );
-} else if (uiMatches > 0 && rawMatches === 0) {
-  console.log(
-    "\nFINDING: the API reports multiplier-adjusted balances. The correct share count\n" +
-      "exists at source, which means the failure is one of propagation: it is available\n" +
-      "here and absent from everything downstream."
-  );
-} else {
-  console.log("\nMixed or inconclusive. Record the table above verbatim in the log.");
-}
+const show = (m: Map<string, number>) => [...m.entries()].map(([k, v]) => `${k} ${v}`).join(", ") || "none";
+console.log(`\nbalance:    ${show(tally.balance)}`);
+console.log(`rawBalance: ${show(tally.rawBalance)}`);
+console.log("\nRecord the table above verbatim in docs/devex-log.md. Either outcome is a finding:");
+console.log("  RAW          the API's own balance shows the un-multiplied figure for the issuer's own product");
+console.log("  UI-adjusted  the correct share count is available at source, so the gap is one of propagation");
+console.log("  either       the two cannot be told apart for that row, so it carries no weight");

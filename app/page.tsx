@@ -44,6 +44,14 @@ export default function Home() {
             Owned by holders, reported by nothing. A count across {o.divergentCount} securities,
             not a value.<sup className="fn">1</sup>
           </span>
+          {o.priced && (
+            <span className="note" style={{ marginTop: "0.5rem" }}>
+              At the issuer&rsquo;s last reference price, the {o.priced.pricedCount} securities it
+              prices account for at least{" "}
+              <span className="num">${Math.round(o.priced.value).toLocaleString("en-US")}</span> of
+              it.<sup className="fn">3</sup>
+            </span>
+          )}
         </div>
         <div className="figure">
           <span className="label">Securities whose multiplier moved</span>
@@ -223,6 +231,26 @@ export default function Home() {
             earlier history is unknown rather than assumed, and no action is recorded for it.
           </p>
         )}
+        {o.priced && (
+          <p>
+            <sup className="fn">3</sup> Per-share reference price published by Binance&rsquo;s RWA
+            API, multiplied by the undisclosed shares of each security it prices (fetched{" "}
+            {o.priced.fetchedAt.slice(0, 10)}). It is a last close, not a live quote.{" "}
+            {o.priced.unpriced.length > 0 && (
+              <>
+                It does not price {o.priced.unpriced.length} of the {o.priced.divergentCount},
+                including {o.priced.unpriced[0]?.symbol} (
+                {Math.round(o.priced.unpriced[0]?.hiddenShares ?? 0).toLocaleString("en-US")}{" "}
+                undisclosed shares), so the true total is higher.
+              </>
+            )}
+          </p>
+        )}
+        <p>
+          The catalogue holds the {o.tokenCount} bStocks that could be found and verified on chain.
+          Binance&rsquo;s own RWA API advertises 91 on this chain but returns only 46 from its token
+          list, so neither figure is a confirmed complete set.
+        </p>
         <p>
           Machine readable: <a href="/api/events">the full record as JSON</a>, and{" "}
           <span className="num">/api/wallet/&lt;address&gt;</span> for any account, as JSON or with{" "}
